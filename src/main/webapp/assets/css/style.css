@@ -1,0 +1,209 @@
+.west {
+	width: 130px;
+	padding: 1px;
+}
+
+.north {
+	font-size: 12px;
+}
+
+.north .logo {
+	padding: 10px;
+	float: left;
+}
+
+.north .logout {
+	padding: 10px;
+	float: right;
+	font-size:12px;
+}
+
+.south {
+	text-align: center;
+}
+
+.south .copyright {
+	padding: 10px;
+}
+
+.header {
+	background: #039;
+	height: 40px;
+	font-size:20px;
+	color:white;
+}
+
+.header a:link{font-size:12px; color:white; text-decoration:none;}
+
+.copyright {background:#ccc;}
+
+
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 12px;
+	width: 100%;
+}
+
+.table th, .table td {
+	border: 1px solid #8CACBB;
+	padding: 0.3em 0.7em;
+	text-align: left;
+}
+
+.table th {
+	background: #F8F8F8;
+	text-align: center;
+}
+
+.table thead th {
+	text-align: center;
+}
+
+.table tbody th {
+	text-align: right;
+	width: 70px;
+	padding: 10px;
+}
+
+.table tr:hover {
+	background-color: #f6fafd;
+}
+
+.table td:hover {
+	background-color: #f9feff;
+}
+
+.form th {
+	text-align: right;
+}
+
+.form th, .form td {
+	padding: 0.1em 0.3em;
+	border: 1px solid #D1D7DC;
+}
+
+.form input, .form select, .form textarea {
+	width: 150px;
+	font-size: 12px;
+}
+
+.form input[type='checkbox'], .form input[type='radio'] {
+	width: 20px;
+}
+
+fieldset {
+	margin: 10px;
+	padding: 10px;
+	border: 1px dotted #D1D7DC;
+}
+
+legend {
+	padding: 5px;
+	border: 1px solid #D1D7DC;
+	background: #f5f5f5;
+	font-size: small;
+	font-weight: bold;
+}
+.cancel-btn{
+	display:block;
+	width:50px;
+}
+.btn-style{
+	display:block;
+	width:50px;
+	border:1px solid #ccc;
+	text-decoration:none;
+	border-radius:5px 5px;
+	-webkit-border-radius:5px 5px;
+	-moz-border-radius:5px 5px;
+	background:#F7F7F7;
+	color:#000;
+	margin:0px auto;
+	line-height:23px;
+	text-align:center;
+	padding:0px;
+}
+.blockStyle{
+	height:20px;
+	line-height:20px;
+}
+.disabled-color{
+	background-color:#eee;
+}
+.user-stream-header{
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+	font-size:14px;
+	font-weight:bold;
+	
+}
+.easyui-checkbox{
+	display: inline-block;
+}
+.teacherName{
+	text-decoration:none;
+	color:#000;
+	font-size:14px;
+	height:23px;
+	line-height:23px;
+}
+.checkbox-vertical{
+	vertical-align:middle;
+}
+#player{
+	margin:50px auto;
+	width:800px;
+	height:500px;
+	display:block;
+}
+.stream_title{
+	width:800px;
+	margin:50px auto;
+	font-size:30px;
+}
+.stream_header{
+	width:800px;
+	margin:50px auto;
+	font-family:微软雅黑;
+}
+
+<!-- -->
+.north_self{
+	height:80px;
+}
+.west .tree-node{
+	height: 22px;
+	padding-top:3px;
+}
+.panel-body-noheader {
+    border-top-width: 0px;
+}
+.tabs-header {
+    padding: 0px 0px 0px;
+}
+.tabs{
+	height:30px!important;
+	background-color:#f2f2f2;
+	border-color: hsl(0, 0%, 89%);
+}
+.tabs-inner{
+	height:24px!important;
+}
+.datagrid-row {
+        height: 32px;
+    }
+#searchForm table{
+	margin-top:5px;
+	margin-left:5px;
+}
+.tree-title lable{
+	display:inline-block!important ;
+	width:100px!important;
+}
+ ul#imagelist li{
+  	list-style-type:none;
+  	float:left;
+  	margin:2px;
+  }

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.auth.AuthSystemFunctionDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.auth.AuthSystemFunction">
+                <result column="systemResourceId" property="systemResourceId" jdbcType="INTEGER" />
+                <result column="functionName" property="functionName" jdbcType="VARCHAR" />
+                <result column="operateCode" property="operateCode" jdbcType="VARCHAR" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM authSystemFunction t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM authSystemFunction t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.auth.AuthSystemFunction"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO authSystemFunction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="systemResourceId != null">
+            `systemResourceId`,
+         </if>       
+                <if test="functionName != null">
+            `functionName`,
+         </if>       
+                <if test="operateCode != null">
+            `operateCode`,
+         </if>        
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="systemResourceId != null">
+            #{systemResourceId,jdbcType=INTEGER},
+            </if>
+                     <if test="functionName != null">
+            #{functionName,jdbcType=VARCHAR},
+            </if>
+                     <if test="operateCode != null">
+            #{operateCode,jdbcType=VARCHAR},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=VARCHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.auth.AuthSystemFunction">
+    UPDATE authSystemFunction
+        <set>
+                    <if test="systemResourceId != null">
+            systemResourceId = #{systemResourceId,jdbcType=INTEGER},
+             </if> 
+                    <if test="functionName != null">
+            functionName = #{functionName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="operateCode != null">
+            operateCode = #{operateCode,jdbcType=VARCHAR},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=VARCHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.auth.AuthSystemFunction">
+		SELECT t.*
+		FROM authSystemFunction t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.auth.AuthSystemFunction">
+		DELETE FROM authSystemFunction
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	
+	<!-- 获取用户权限的核心SQL
+		authSystemFunction:系统功能表,系统功能=资源+操作
+		authRolePermission:角色权限表,存放[角色-系统功能]对应关系
+		authRoleUsers:用户角色表,存放用户具有哪些角色
+		
+		1. 子查询根据[角色权限表]和[用户角色表]过滤出用户的系统功能(主键sf_id)
+		2. 关联系统功能表
+	-->
+	<select id="findUserSysFunction" resultMap="queryResultMap" parameterType="String">
+		SELECT t.* 
+		FROM authSystemFunction t
+		INNER JOIN 
+		(
+			SELECT DISTINCT rp.sysFuncId FROM authRolePermission rp INNER JOIN authRoleUsers ur ON rp.roleId = ur.roleId
+			WHERE ur.userName = #{userName,jdbcType=VARCHAR}
+		) tt ON t.id = tt.sysFuncId ORDER BY t.sortId
+	</select>
+
+</mapper>

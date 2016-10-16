@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.finance.FinanceChargeProductDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.finance.FinanceChargeProduct">
+                <result column="productName" property="productName" jdbcType="VARCHAR" />
+                <result column="picIds" property="picIds" jdbcType="VARCHAR" />
+                <result column="productType" property="productType" jdbcType="INTEGER" />
+                <result column="remark" property="remark" jdbcType="VARCHAR" />
+                <result column="originalPrice" property="originalPrice" jdbcType="TIMESTAMP" />
+                <result column="presentPrice" property="presentPrice" jdbcType="TIMESTAMP" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM financeChargeProduct t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM financeChargeProduct t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.finance.FinanceChargeProduct"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO financeChargeProduct
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="productName != null">
+            `productName`,
+         </if>       
+                <if test="picIds != null">
+            `picIds`,
+         </if>       
+                <if test="productType != null">
+            `productType`,
+         </if>       
+                <if test="remark != null">
+            `remark`,
+         </if>       
+                <if test="originalPrice != null">
+            `originalPrice`,
+         </if>       
+                <if test="presentPrice != null">
+            `presentPrice`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="productName != null">
+            #{productName,jdbcType=VARCHAR},
+            </if>
+                     <if test="picIds != null">
+            #{picIds,jdbcType=VARCHAR},
+            </if>
+                     <if test="productType != null">
+            #{productType,jdbcType=INTEGER},
+            </if>
+                     <if test="remark != null">
+            #{remark,jdbcType=VARCHAR},
+            </if>
+                     <if test="originalPrice != null">
+            #{originalPrice,jdbcType=TIMESTAMP},
+            </if>
+                     <if test="presentPrice != null">
+            #{presentPrice,jdbcType=TIMESTAMP},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=VARCHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.finance.FinanceChargeProduct">
+    UPDATE financeChargeProduct
+        <set>
+                    <if test="productName != null">
+            productName = #{productName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="picIds != null">
+            picIds = #{picIds,jdbcType=VARCHAR},
+             </if> 
+                    <if test="productType != null">
+            productType = #{productType,jdbcType=INTEGER},
+             </if> 
+                    <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+             </if> 
+                    <if test="originalPrice != null">
+            originalPrice = #{originalPrice,jdbcType=TIMESTAMP},
+             </if> 
+                    <if test="presentPrice != null">
+            presentPrice = #{presentPrice,jdbcType=TIMESTAMP},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=VARCHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.finance.FinanceChargeProduct">
+		SELECT t.*
+		FROM financeChargeProduct t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.finance.FinanceChargeProduct">
+		DELETE FROM financeChargeProduct
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+
+</mapper>

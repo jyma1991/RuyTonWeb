@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.article.ArticleLikeDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.article.ArticleLike">
+		<result column="articleId" property="articleId" jdbcType="INTEGER" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="CHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="userQueryResultMap" type="com.ryt.web.entity.user.User">
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="trueName" property="trueName" jdbcType="VARCHAR" />
+		<result column="userPwd" property="userPwd" jdbcType="VARCHAR" />
+		<result column="roleProperty" property="roleProperty" jdbcType="INTEGER" />
+		<result column="avatar" property="avatar" jdbcType="INTEGER" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="provinceId" property="provinceId" jdbcType="INTEGER" />
+		<result column="districtId" property="districtId" jdbcType="INTEGER" />
+		<result column="cityId" property="cityId" jdbcType="INTEGER" />
+		<result column="addressDetail" property="addressDetail"
+			jdbcType="VARCHAR" />
+		<result column="defaultAvatar" property="defaultAvatar"
+			jdbcType="VARCHAR" />
+		<result column="fixedPhone" property="fixedPhone" jdbcType="VARCHAR" />
+		<result column="mobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="weiXin" property="weiXin" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="lastLoginDate" property="lastLoginDate"
+			jdbcType="TIMESTAMP" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM articleLike t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM articleLike t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.article.ArticleLike"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO articleLike
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="articleId != null">
+				`articleId`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="operaterId != null">
+				`operaterId`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="articleId != null">
+				#{articleId,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				#{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.article.ArticleLike">
+		UPDATE articleLike
+		<set>
+			<if test="articleId != null">
+				articleId = #{articleId,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				operaterId = #{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleLike">
+		SELECT t.*
+		FROM articleLike t
+		WHERE id =
+		#{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.article.ArticleLike">
+		update articleLike set isDeleted = 1
+		WHERE id =
+		<if test="id != null">
+			#{id,jdbcType=INTEGER}
+		</if>
+	</delete>
+
+
+	<!-- 获得该文章点赞次数 -->
+	<select id="getArticleLikeCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(t.id) FROM articleLike t WHERE t.articleId =
+		#{articleId,jdbcType=INTEGER} and t.isDeleted = 0
+	</select>
+
+
+	<!-- 通过artcleId查找 -->
+	<select id="getArticle" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleLike">
+		SELECT t.*
+		FROM articleLike t
+		WHERE articleId =
+		#{articleId,jdbcType=INTEGER} and userId= #{userId,jdbcType=INTEGER}
+		and t.isDeleted = 0
+	</select>
+
+	<!-- 获得该文章点赞次数 -->
+	<select id="getArticleLikeUsers" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="userQueryResultMap">
+		SELECT * FROM user u WHERE u.id in (SELECT t.userId FROM
+		articleLike t WHERE t.articleId = #{articleId,jdbcType=INTEGER} and t.isDeleted = 0) and
+		u.isDeleted=0
+	</select>
+
+
+
+
+</mapper>

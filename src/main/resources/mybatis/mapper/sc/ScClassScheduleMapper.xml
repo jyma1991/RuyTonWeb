@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScClassScheduleDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScClassSchedule">
+                <result column="beginDate" property="beginDate" jdbcType="VARCHAR" />
+                <result column="endDate" property="endDate" jdbcType="VARCHAR" />
+                <result column="d1" property="d1" jdbcType="INTEGER" />
+                <result column="d2" property="d2" jdbcType="INTEGER" />
+                <result column="d3" property="d3" jdbcType="INTEGER" />
+                <result column="d4" property="d4" jdbcType="INTEGER" />
+                <result column="d5" property="d5" jdbcType="INTEGER" />
+                <result column="d6" property="d6" jdbcType="INTEGER" />
+                <result column="d7" property="d7" jdbcType="INTEGER" />
+                <result column="remark" property="remark" jdbcType="VARCHAR" />
+                <result column="classId" property="classId" jdbcType="INTEGER" />
+                <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+                <result column="wDay" property="wDay" jdbcType="INTEGER" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scClassSchedule t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scClassSchedule t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.sc.ScClassSchedule"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO scClassSchedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="beginDate != null">
+            `beginDate`,
+         </if>       
+                <if test="endDate != null">
+            `endDate`,
+         </if>       
+                <if test="d1 != null">
+            `d1`,
+         </if>       
+                <if test="d2 != null">
+            `d2`,
+         </if>       
+                <if test="d3 != null">
+            `d3`,
+         </if>       
+                <if test="d4 != null">
+            `d4`,
+         </if>       
+                <if test="d5 != null">
+            `d5`,
+         </if>       
+                <if test="d6 != null">
+            `d6`,
+         </if>       
+                <if test="d7 != null">
+            `d7`,
+         </if>       
+                <if test="remark != null">
+            `remark`,
+         </if>       
+                <if test="classId != null">
+            `classId`,
+         </if>       
+                <if test="schoolId != null">
+            `schoolId`,
+         </if>       
+                <if test="agentId != null">
+            `agentId`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="beginDate != null">
+            #{beginDate,jdbcType=VARCHAR},
+            </if>
+                     <if test="endDate != null">
+            #{endDate,jdbcType=VARCHAR},
+            </if>
+                     <if test="d1 != null">
+            #{d1,jdbcType=INTEGER},
+            </if>
+                     <if test="d2 != null">
+            #{d2,jdbcType=INTEGER},
+            </if>
+                     <if test="d3 != null">
+            #{d3,jdbcType=INTEGER},
+            </if>
+                     <if test="d4 != null">
+            #{d4,jdbcType=INTEGER},
+            </if>
+                     <if test="d5 != null">
+            #{d5,jdbcType=INTEGER},
+            </if>
+                     <if test="d6 != null">
+            #{d6,jdbcType=INTEGER},
+            </if>
+                     <if test="d7 != null">
+            #{d7,jdbcType=INTEGER},
+            </if>
+                     <if test="remark != null">
+            #{remark,jdbcType=VARCHAR},
+            </if>
+                     <if test="classId != null">
+            #{classId,jdbcType=INTEGER},
+            </if>
+                     <if test="schoolId != null">
+            #{schoolId,jdbcType=INTEGER},
+            </if>
+                     <if test="agentId != null">
+            #{agentId,jdbcType=INTEGER},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=CHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.sc.ScClassSchedule">
+    UPDATE scClassSchedule
+        <set>
+                    <if test="beginDate != null">
+            beginDate = #{beginDate,jdbcType=VARCHAR},
+             </if> 
+                    <if test="endDate != null">
+            endDate = #{endDate,jdbcType=VARCHAR},
+             </if> 
+                    <if test="d1 != null">
+            d1 = #{d1,jdbcType=INTEGER},
+             </if> 
+                    <if test="d2 != null">
+            d2 = #{d2,jdbcType=INTEGER},
+             </if> 
+                    <if test="d3 != null">
+            d3 = #{d3,jdbcType=INTEGER},
+             </if> 
+                    <if test="d4 != null">
+            d4 = #{d4,jdbcType=INTEGER},
+             </if> 
+                    <if test="d5 != null">
+            d5 = #{d5,jdbcType=INTEGER},
+             </if> 
+                    <if test="d6 != null">
+            d6 = #{d6,jdbcType=INTEGER},
+             </if> 
+                    <if test="d7 != null">
+            d7 = #{d7,jdbcType=INTEGER},
+             </if> 
+                    <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+             </if> 
+                    <if test="classId != null">
+            classId = #{classId,jdbcType=INTEGER},
+             </if> 
+                    <if test="schoolId != null">
+            schoolId = #{schoolId,jdbcType=INTEGER},
+             </if> 
+                    <if test="agentId != null">
+            agentId = #{agentId,jdbcType=INTEGER},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=CHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sc.ScClassSchedule">
+		SELECT t.*
+		FROM scClassSchedule t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScClassSchedule">
+		UPDATE scClassSchedule
+		<set>
+			isDeleted = 1
+		</set>
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	
+	<select id="findClassScheduleByClassName" resultMap="queryResultMap" parameterType="java.lang.String">
+		SELECT s.* 
+		FROM scClassSchedule s,scClass c 
+		WHERE s.classId = c.id and s.schoolId = c.schoolId
+		<if test="schoolId > 0"> 
+		and c.schoolId = #{schoolId,jdbcType=INTEGER}
+		</if>
+		<if test="className != null and className != ''">
+		and c.className like concat('%',#{className,jdbcType=VARCHAR},'%') 
+		</if>
+		<if test="beginDate != null and beginDate != ''">
+		and s.beginDate >= #{beginDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and endDate != ''">
+		and  <![CDATA[ s.endDate <= #{endDate,jdbcType=VARCHAR} ]]> 
+		</if>
+		ORDER BY s.id desc
+	</select>
+	
+	<select id="getScClassScheduleByWeekDay" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		select 1 as wDay, scs.d1,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d1 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId} and scs.isDeleted = 0
+		UNION 
+		select 2 as wDay, scs.d2,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d2 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId} and scs.isDeleted = 0
+		UNION 
+		select 3 as wDay, scs.d3,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d3 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId} and scs.isDeleted = 0
+		UNION 
+		select 4 as wDay, scs.d4,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d4 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId}  and scs.isDeleted = 0
+		UNION 
+		select 5 as wDay, scs.d5,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d5 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId} and scs.isDeleted = 0
+		UNION 
+		select 6 as wDay, scs.d6,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d6 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId} and scs.isDeleted = 0
+		UNION 
+		select 7 as wDay, scs.d7,scs.beginDate,scs.endDate ,
+		(SELECT scCourse.courseName from scCourse where scs.d7 = scCourse.id and scCourse.isDeleted=0) as courseName
+		  from scClassSchedule scs where classId = #{classId} and scs.isDeleted = 0
+		ORDER BY wDay,beginDate
+
+	</select>
+</mapper>

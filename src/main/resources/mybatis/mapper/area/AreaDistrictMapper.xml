@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.area.AreaDistrictDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.area.AreaDistrict">
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="districtName" property="districtName" jdbcType="VARCHAR" />
+                <result column="cityId" property="cityId" jdbcType="INTEGER" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM areaDistrict t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM areaDistrict t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.area.AreaDistrict"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO areaDistrict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="districtName != null">
+            `districtName`,
+         </if>       
+                <if test="cityId != null">
+            `cityId`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="districtName != null">
+            #{districtName,jdbcType=VARCHAR},
+            </if>
+                     <if test="cityId != null">
+            #{cityId,jdbcType=INTEGER},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.area.AreaDistrict">
+    UPDATE areaDistrict
+        <set>
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="districtName != null">
+            districtName = #{districtName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="cityId != null">
+            cityId = #{cityId,jdbcType=INTEGER},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.area.AreaDistrict">
+		SELECT t.*
+		FROM areaDistrict t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.area.AreaDistrict">
+		DELETE FROM areaDistrict
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+
+</mapper>

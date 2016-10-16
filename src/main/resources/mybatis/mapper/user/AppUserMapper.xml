@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.app.dao.AppUserDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.user.User">
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="trueName" property="trueName" jdbcType="VARCHAR" />
+		<result column="userPwd" property="userPwd" jdbcType="VARCHAR" />
+		<result column="roleProperty" property="roleProperty" jdbcType="INTEGER" />
+		<result column="avatar" property="avatar" jdbcType="INTEGER" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="provinceId" property="provinceId" jdbcType="INTEGER" />
+		<result column="districtId" property="districtId" jdbcType="INTEGER" />
+		<result column="cityId" property="cityId" jdbcType="INTEGER" />
+		<result column="addressDetail" property="addressDetail"
+			jdbcType="VARCHAR" />
+		<result column="defaultAvatar" property="defaultAvatar"
+			jdbcType="VARCHAR" />
+		<result column="fixedPhone" property="fixedPhone" jdbcType="VARCHAR" />
+		<result column="mobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="weiXin" property="weiXin" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="lastLoginDate" property="lastLoginDate"
+			jdbcType="TIMESTAMP" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="scClassResultMap" type="com.ryt.web.entity.sc.ScClass">
+		<result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+		<result column="agentId" property="agentId" jdbcType="INTEGER" />
+		<result column="managerId" property="managerId" jdbcType="INTEGER" />
+		<result column="classCode" property="classCode" jdbcType="VARCHAR" />
+		<result column="className" property="className" jdbcType="VARCHAR" />
+		<result column="grade" property="grade" jdbcType="INTEGER" />
+		<result column="maxAmount" property="maxAmount" jdbcType="INTEGER" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="startDate" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="placeTypeId" property="placeTypeId" jdbcType="INTEGER" />
+		<result column="streamId" property="streamId" jdbcType="INTEGER" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="save" parameterType="com.ryt.web.entity.user.User"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="nickName != null">
+				`nickName`,
+			</if>
+			<if test="trueName != null">
+				`trueName`,
+			</if>
+			<if test="userPwd != null">
+				`userPwd`,
+			</if>
+			<if test="roleProperty != null">
+				`roleProperty`,
+			</if>
+			<if test="avatar != null">
+				`avatar`,
+			</if>
+			<if test="sex != null">
+				`sex`,
+			</if>
+			<if test="defaultAvatar != null">
+				`defaultAvatar`,
+			</if>
+			<if test="birthday != null">
+				`birthday`,
+			</if>
+			<if test="provinceId != null">
+				`provinceId`,
+			</if>
+			<if test="districtId != null">
+				`districtId`,
+			</if>
+			<if test="cityId != null">
+				`cityId`,
+			</if>
+			<if test="addressDetail != null">
+				`addressDetail`,
+			</if>
+			<if test="fixedPhone != null">
+				`fixedPhone`,
+			</if>
+			<if test="mobilePhone != null">
+				`mobilePhone`,
+			</if>
+			<if test="remark != null">
+				`remark`,
+			</if>
+			<if test="weiXin != null">
+				`weiXin`,
+			</if>
+			<if test="qq != null">
+				`qq`,
+			</if>
+			<if test="email != null">
+				`email`,
+			</if>
+			<if test="lastLoginDate != null">
+				`lastLoginDate`,
+			</if>
+			<if test="token != null">
+				`token`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="operaterId != null">
+				`operaterId`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="nickName != null">
+				#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="trueName != null">
+				#{trueName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPwd != null">
+				#{userPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="roleProperty != null">
+				#{roleProperty,jdbcType=INTEGER},
+			</if>
+			<if test="avatar != null">
+				#{avatar,jdbcType=INTEGER},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="provinceId != null">
+				#{provinceId,jdbcType=INTEGER},
+			</if>
+			<if test="districtId != null">
+				#{districtId,jdbcType=INTEGER},
+			</if>
+			<if test="defaultAvatar != null">
+				#{defaultAvatar,jdbcType=VARCHAR},
+			</if>
+			<if test="cityId != null">
+				#{cityId,jdbcType=INTEGER},
+			</if>
+			<if test="addressDetail != null">
+				#{addressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedPhone != null">
+				#{fixedPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilePhone != null">
+				#{mobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="weiXin != null">
+				#{weiXin,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginDate != null">
+				#{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="token != null">
+				#{token,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				#{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.user.User">
+		UPDATE user
+		<set>
+			<if test="nickName != null">
+				nickName = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="trueName != null">
+				trueName = #{trueName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPwd != null">
+				userPwd = #{userPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="roleProperty != null">
+				roleProperty = #{roleProperty,jdbcType=INTEGER},
+			</if>
+			<if test="avatar != null">
+				avatar = #{avatar,jdbcType=INTEGER},
+			</if>
+			<if test="defaultAvatar != null">
+				defaultAvatar = #{defaultAvatar,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="provinceId != null">
+				provinceId = #{provinceId,jdbcType=INTEGER},
+			</if>
+			<if test="districtId != null">
+				districtId = #{districtId,jdbcType=INTEGER},
+			</if>
+			<if test="cityId != null">
+				cityId = #{cityId,jdbcType=INTEGER},
+			</if>
+			<if test="addressDetail != null">
+				addressDetail = #{addressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="fixedPhone != null">
+				fixedPhone = #{fixedPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilePhone != null">
+				mobilePhone = #{mobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="weiXin != null">
+				weiXin = #{weiXin,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				qq = #{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginDate != null">
+				lastLoginDate = #{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="token != null">
+				token = #{token,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				operaterId = #{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.user.User">
+		SELECT t.*
+		FROM user t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+
+
+
+	<!-- 用户名查找用户信息 -->
+	<select id="getUserByUserName" resultMap="queryResultMap"
+		parameterType="String">
+		SELECT t.*
+		FROM user t Where userName =
+		#{userName,jdbcType=VARCHAR} and t.isDeleted=0
+	</select>
+	<!-- 登录 -->
+	<select id="appLogin" resultMap="queryResultMap" parameterType="com.ryt.web.entity.user.User">
+		select *,
+		(select districtName from areaDistrict where user.districtId
+		=
+		areaDistrict.id) as districName,
+		(select cityName from areaCity where
+		user.cityId = areaCity.id) as cityName,
+		(select provinceName from
+		areaProvince where user.provinceId =
+		areaProvince.id) as provinceName,
+		(select fileFullPath from sysUpload u,user x where x.avatar=u.id and
+		x.userName=#{userName,jdbcType=VARCHAR}) as
+		artHead from
+		user
+		where
+		user.userName =#{userName,jdbcType=VARCHAR} and user.isDeleted = 0
+	</select>
+
+	<!-- <select id="getChildrens" resultMap="queryResultMap" parameterType="java.lang.Integer"> 
+		select *, (select districtName from areaDistrict where u.districtId = areaDistrict.id) 
+		as districName, (select cityName from areaCity where u.cityId = areaCity.id) 
+		as cityName, (select provinceName from areaProvince where u.provinceId = 
+		areaProvince.id) as provinceName, (select s2.schoolId from scSchool s2,scStudent 
+		t where s2.schoolId=t.schoolId and u.id = t.studentId and u.id=19) as schoolId, 
+		(select s.schoolName from scSchool s,scStudent t where s.schoolId=t.schoolId 
+		and u.id = t.studentId and u.id=19) as schoolName, (select class.className 
+		from scClass class,scStudent su where class.id=su.classId and su.studentId 
+		= u.id and u.id=19) as scClassName, (select class2.id from scClass class2,scStudent 
+		su where class2.id=su.classId and su.studentId = u.id and u.id=19 ) as classId, 
+		(select fileFullPath from sysUpload ul where u.avatar=ul.id) as babyHead 
+		from user u join scStudentParents sc where sc.studentId = u.id and sc.parentId 
+		= #{id,jdbcType=INTEGER} </select> -->
+
+	<select id="getChildrens" resultMap="queryResultMap"
+		parameterType="java.lang.Integer">
+		select u.*,
+		(select districtName from areaDistrict where
+		u.districtId = areaDistrict.id) as districName,
+		(select cityName from
+		areaCity where u.cityId = areaCity.id) as cityName,
+		(select
+		provinceName from areaProvince where u.provinceId = areaProvince.id)
+		as provinceName,
+		(select fileFullPath from sysUpload sys where
+		sys.id=u.avatar) as babyHead
+		from user u join scStudentParents sc where
+		sc.studentId = u.id and sc.parentId = #{id,jdbcType=INTEGER} and
+		sc.isDeleted = 0
+	</select>
+
+	<!-- 用户名查找用户信息 -->
+	<select id="getUserRelativeName" resultType="java.lang.String"
+		parameterType="java.lang.Integer">
+		SELECT className
+		FROM scStudentParents sc,sysClass t
+		Where sc.relatedTypeId = t.id and
+		sc.studentId=#{studentId,jdbcType=INTEGER} and
+		sc.parentId=#{userId,jdbcType=INTEGER} and sc.isDeleted = 0
+	</select>
+
+	<!-- 查询负责孩子的所有老师信息 -->
+	<!-- <select id="getTeachersContacts" resultMap="queryResultMap" parameterType="com.ryt.web.entity.user.User"> 
+		select * from user u where u.id in (SELECT c.teacherId from scClassTeacher 
+		c,scTeacher t where t.teacherId=c.teacherId and c.classId=#{classId,jdbcType=INTEGER}) 
+		</select> -->
+
+	<!-- 获取学校所有老师信息 -->
+	<select id="getTeachersContactsByTeacher" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.user.User">
+		select x.* from user x,scTeacher s
+		where x.id=s.teacherId
+		and s.schoolId = (select t.schoolId from scTeacher t,user u where
+		u.id=t.teacherId and u.id=#{userId})
+	</select>
+
+	<!-- 查询用户孩子相关班级的老师信息 -->
+	<select id="getTeachersContactsByParents" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.user.User">
+		select * from user u,scClassTeacher t
+		where
+		u.id=t.teacherId
+		and t.classId = (select s.classId from scStudent s
+		where
+		s.studentId=#{childId})
+	</select>
+
+
+
+
+	<select id="getParentsContactsByTeacher" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.user.User">
+		select * from user u,scStudent sc where
+		u.id=sc.studentId and sc.classId in(
+		select DISTINCT(c.classId) from
+		scClassTeacher c where c.teacherId =
+		#{userId,jdbcType=INTEGER});
+	</select>
+
+	<!-- 获取老师相关的一些班级信息 -->
+	<select id="getClassByTeacher" resultMap="scClassResultMap"
+		parameterType="com.ryt.web.entity.sc.ScClass">
+		select * from scClass s, scClassTeacher c where
+		s.id =
+		c.classId
+		and
+		c.teacherId = #{userId,jdbcType=INTEGER} and
+		s.placeTypeId=69;
+	</select>
+
+
+	<select id="getClassParentsContacts" resultMap="queryResultMap"
+		parameterType="java.lang.Integer">
+		select distinct(u.id),u.* from user u,scStudentParents p
+		where
+		u.id=p.parentId and p.isDeleted = 0 and p.studentId
+		in
+		(select
+		s.studentId from
+		scStudent s
+		where
+		s.classId=#{classId,jdbcType=INTEGER})
+	</select>
+
+	<select id="getClassByParents" resultMap="scClassResultMap"
+		parameterType="com.ryt.web.entity.sc.ScClass">
+		select * from scClass s, scStudent c
+		where s.id=c.classId
+		and c.studentId = #{childId,jdbcType=INTEGER} and s.placeTypeId=69
+	</select>
+
+	<!-- 获取老师下的某个班级班级家长信息 -->
+	<select id="getTeacherChargeParentsList" parameterType="com.ryt.web.entity.sc.ScClass"
+		resultMap="queryResultMap">
+		select u.* from user u,scStudentParents sc
+		where parentId=u.id and u.isDeleted = 0
+		and sc.studentId in
+		(select s.studentId from scStudent s where
+		s.classId=#{id,jdbcType=INTEGER} and s.isDeleted = 0)
+	</select>
+
+	<!-- 通过园长id查找其下面的所有班级信息 -->
+	<select id="getClassBySchool" parameterType="com.ryt.web.entity.user.User"
+		resultMap="scClassResultMap">
+		select * from scClass where
+		schoolId=#{userId,jdbcType=INTEGER} and placeTypeId=69 and isDeleted =
+		0
+	</select>
+
+	<!-- 园长获取其所有老师信息 -->
+	<select id="getTeachersContactsBySchool" parameterType="com.ryt.web.entity.user.User"
+		resultMap="queryResultMap">
+		select u.* from user u,scTeacher sc where u.id=sc.teacherId
+		and sc.schoolId = #{userId,jdbcType=INTEGER} and u.isDeleted = 0
+	</select>
+	<!-- 园长获取其所有家长信息 -->
+	<select id="getParentsContactsBySchool" parameterType="com.ryt.web.entity.user.User"
+		resultMap="queryResultMap">
+		select * from user u,scStudentParents sc
+		where parentId=u.id
+		and sc.isDeleted = 0
+		and sc.studentId
+		in (select s.studentId from scStudent s where
+		s.schoolId=#{userId,jdbcType=INTEGER})
+	</select>
+
+	<select id="getClassParentsContactsBySchool" resultMap="queryResultMap"
+		parameterType="java.lang.Integer">
+		select * from user u,scStudentParents p
+		where
+		u.id=p.parentId and p.isDeleted = 0 and p.studentId
+		in
+		(select s.studentId from scStudent s
+		where
+		s.classId=#{classId,jdbcType=INTEGER})
+	</select>
+
+	<!-- 获取孩子的所有家长信息集合 -->
+	<select id="getChildParents" resultMap="queryResultMap"
+		parameterType="java.lang.Integer">
+		select * from user where id in (select sc.parentId from
+		scStudentParents sc where sc.studentId =
+		#{studentId,jdbcType=INTEGER}
+		and sc.isDeleted = 0)
+	</select>
+
+
+
+
+	<select id="getSenderUserCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		select count(n.id) from notifyArticle n where
+		n.articleId=#{articleId,jdbcType=INTEGER} and n.senderId
+		in(
+		select
+		DISTINCT(u.id) from user u,scStudentParents p
+		where
+		u.id=p.parentId and
+		p.studentId
+		in
+		(select s.studentId from scStudent s
+		where
+		s.classId=#{classId,jdbcType=INTEGER}))
+	</select>
+	<!-- 获取老师发送班级个别人员通知名单,之查询 -->
+	<select id="getSenderUserList" parameterType="com.ryt.web.entity.notify.NotifyArticle"
+		resultMap="queryResultMap">
+		select * from user u where u.roleProperty=1 and u.id in
+		(select n.senderId
+		from notifyArticle n where n.articleId=
+		#{articleId,jdbcType=INTEGER} and n.senderId is not
+		null)
+	</select>
+
+
+	<select id="getClassParentsContactsCount" parameterType="com.ryt.web.entity.sc.ScClass"
+		resultType="java.lang.Integer">
+		select count(DISTINCT(u.id)) from user u,scStudentParents p
+		where
+		u.id=p.parentId and u.isDeleted = 0 and p.isDeleted = 0 and
+		p.studentId
+		in
+		(select s.studentId from
+		scStudent s
+		where
+		s.classId=#{id,jdbcType=INTEGER})
+	</select>
+
+	<select id="getUserbyUserNames" resultMap="queryResultMap">
+		select * from user where userName in
+		<foreach item="item" index="index" collection="userNamesArray"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		and isDeleted = 0
+	</select>
+
+	<select id="getUserbyIds" resultMap="queryResultMap">
+		select * from user where id in
+		<foreach item="item" index="index" collection="userIdsArray"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		and isDeleted = 0
+	</select>
+
+
+
+
+</mapper>

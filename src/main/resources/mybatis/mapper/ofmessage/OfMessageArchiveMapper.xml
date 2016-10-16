@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.ofmessage.OfMessageArchiveDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		<result column="messageID" property="messageID" jdbcType="VARCHAR" />
+		<result column="conversationID" property="conversationID"
+			jdbcType="VARCHAR" />
+		<result column="fromJID" property="fromJID" jdbcType="VARCHAR" />
+		<result column="fromJIDResource" property="fromJIDResource"
+			jdbcType="VARCHAR" />
+		<result column="toJID" property="toJID" jdbcType="VARCHAR" />
+		<result column="toJIDResource" property="toJIDResource"
+			jdbcType="VARCHAR" />
+		<result column="sentDate" property="sentDate" jdbcType="VARCHAR" />
+		<result column="stanza" property="stanza" jdbcType="VARCHAR" />
+		<result column="body" property="body" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM ofMessageArchive t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t. desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM ofMessageArchive t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		INSERT INTO ofMessageArchive
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="messageID != null">
+				`messageID`,
+			</if>
+			<if test="conversationID != null">
+				`conversationID`,
+			</if>
+			<if test="fromJID != null">
+				`fromJID`,
+			</if>
+			<if test="fromJIDResource != null">
+				`fromJIDResource`,
+			</if>
+			<if test="toJID != null">
+				`toJID`,
+			</if>
+			<if test="toJIDResource != null">
+				`toJIDResource`,
+			</if>
+			<if test="sentDate != null">
+				`sentDate`,
+			</if>
+			<if test="stanza != null">
+				`stanza`,
+			</if>
+			<if test="body != null">
+				`body`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="messageID != null">
+				#{messageID,jdbcType=VARCHAR},
+			</if>
+			<if test="conversationID != null">
+				#{conversationID,jdbcType=VARCHAR},
+			</if>
+			<if test="fromJID != null">
+				#{fromJID,jdbcType=VARCHAR},
+			</if>
+			<if test="fromJIDResource != null">
+				#{fromJIDResource,jdbcType=VARCHAR},
+			</if>
+			<if test="toJID != null">
+				#{toJID,jdbcType=VARCHAR},
+			</if>
+			<if test="toJIDResource != null">
+				#{toJIDResource,jdbcType=VARCHAR},
+			</if>
+			<if test="sentDate != null">
+				#{sentDate,jdbcType=VARCHAR},
+			</if>
+			<if test="stanza != null">
+				#{stanza,jdbcType=VARCHAR},
+			</if>
+			<if test="body != null">
+				#{body,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		UPDATE ofMessageArchive
+		<set>
+			<if test="messageID != null">
+				messageID = #{messageID,jdbcType=VARCHAR},
+			</if>
+			<if test="conversationID != null">
+				conversationID = #{conversationID,jdbcType=VARCHAR},
+			</if>
+			<if test="fromJID != null">
+				fromJID = #{fromJID,jdbcType=VARCHAR},
+			</if>
+			<if test="fromJIDResource != null">
+				fromJIDResource = #{fromJIDResource,jdbcType=VARCHAR},
+			</if>
+			<if test="toJID != null">
+				toJID = #{toJID,jdbcType=VARCHAR},
+			</if>
+			<if test="toJIDResource != null">
+				toJIDResource = #{toJIDResource,jdbcType=VARCHAR},
+			</if>
+			<if test="sentDate != null">
+				sentDate = #{sentDate,jdbcType=VARCHAR},
+			</if>
+			<if test="stanza != null">
+				stanza = #{stanza,jdbcType=VARCHAR},
+			</if>
+			<if test="body != null">
+				body = #{body,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE
+		<if test=" != null">
+			= #{,jdbcType=}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		SELECT t.*
+		FROM ofMessageArchive t
+		WHERE messageID=
+		#{messageID,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		DELETE FROM ofMessageArchive
+		WHERE =
+		<if test=" messageID!= null">
+			#{messageID,jdbcType=VARCHAR}
+		</if>
+	</delete>
+
+	<select id="getMessageByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		select * from (select * from ofMessageArchive of
+		where (of.fromJID=#{fromJID,jdbcType=VARCHAR} and of.toJID =
+		#{toJID,jdbcType=VARCHAR} OR of.fromJID=#{toJID,jdbcType=VARCHAR} and
+		of.toJID=#{fromJID,jdbcType=VARCHAR})
+		order by of.messageID desc limit 0,5) b order by b.messageID asc
+
+	</select>
+
+
+	<select id="getOldMessageByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		select * from (select * from ofMessageArchive of
+		where (of.fromJID=#{fromJID,jdbcType=VARCHAR} and of.toJID =
+		#{toJID,jdbcType=VARCHAR} OR of.fromJID=#{toJID,jdbcType=VARCHAR} and
+		of.toJID=#{fromJID,jdbcType=VARCHAR}) and  <![CDATA[ of.messageID<#{messageID,jdbcType=INTEGER} ]]>
+		order by of.messageID desc limit 0,5) b order by b.messageID asc
+
+	</select>
+	
+	<select id="getGroupMessageByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		select * from (select * from ofMessageArchive of
+		where 
+		of.toJID=#{toJID,jdbcType=VARCHAR}
+		order by of.messageID desc limit 0,10) b order by b.messageID asc
+
+	</select>
+	
+	
+	<select id="getOldGroupMessageByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.ofmessage.OfMessageArchive">
+		select * from (select * from ofMessageArchive of
+		where 
+		of.toJID=#{toJID,jdbcType=VARCHAR}
+		and  <![CDATA[ of.messageID<#{messageID,jdbcType=INTEGER} ]]>
+		order by of.messageID desc limit 0,10) b order by b.messageID asc
+
+	</select>
+
+	
+
+
+</mapper>

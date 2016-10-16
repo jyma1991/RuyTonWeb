@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScCookBookDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScCookBook">
+                <result column="publishDate" property="publishDate" jdbcType="VARCHAR" />
+                <result column="foodTypeId" property="foodTypeId" jdbcType="INTEGER" />
+                <result column="detail" property="detail" jdbcType="VARCHAR" />
+                <result column="foodPicId" property="foodPicId" jdbcType="INTEGER" />
+                <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scCookBook t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scCookBook t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.sc.ScCookBook"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO scCookBook
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="publishDate != null">
+            `publishDate`,
+         </if>       
+                <if test="foodTypeId != null">
+            `foodTypeId`,
+         </if>       
+                <if test="detail != null">
+            `detail`,
+         </if>       
+                <if test="foodPicId != null">
+            `foodPicId`,
+         </if>       
+                <if test="schoolId != null">
+            `schoolId`,
+         </if>       
+                <if test="agentId != null">
+            `agentId`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="publishDate != null">
+            #{publishDate,jdbcType=VARCHAR},
+            </if>
+                     <if test="foodTypeId != null">
+            #{foodTypeId,jdbcType=INTEGER},
+            </if>
+                     <if test="detail != null">
+            #{detail,jdbcType=VARCHAR},
+            </if>
+                     <if test="foodPicId != null">
+            #{foodPicId,jdbcType=INTEGER},
+            </if>
+                     <if test="schoolId != null">
+            #{schoolId,jdbcType=INTEGER},
+            </if>
+                     <if test="agentId != null">
+            #{agentId,jdbcType=INTEGER},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=CHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.sc.ScCookBook">
+    UPDATE scCookBook
+        <set>
+                    <if test="publishDate != null">
+            publishDate = #{publishDate,jdbcType=VARCHAR},
+             </if> 
+                    <if test="foodTypeId != null">
+            foodTypeId = #{foodTypeId,jdbcType=INTEGER},
+             </if> 
+                    <if test="detail != null">
+            detail = #{detail,jdbcType=VARCHAR},
+             </if> 
+                    <if test="foodPicId != null">
+            foodPicId = #{foodPicId,jdbcType=INTEGER},
+             </if> 
+                    <if test="schoolId != null">
+            schoolId = #{schoolId,jdbcType=INTEGER},
+             </if> 
+                    <if test="agentId != null">
+            agentId = #{agentId,jdbcType=INTEGER},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=CHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sc.ScCookBook">
+		SELECT t.*
+		FROM scCookBook t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScCookBook">
+		update scCookBook set isDeleted = 1 
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+</mapper>

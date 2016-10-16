@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScAgentDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScAgent">
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="agentCode" property="agentCode" jdbcType="VARCHAR" />
+                <result column="levelId" property="levelId" jdbcType="INTEGER" />
+                <result column="identityCardNo" property="identityCardNo" jdbcType="VARCHAR" />
+                <result column="commandUserId" property="commandUserId" jdbcType="INTEGER" />
+                <result column="fax" property="fax" jdbcType="VARCHAR" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+                <result column="cardNo" property="cardNo" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scAgent t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scAgent t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.sc.ScAgent"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO scAgent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="agentId != null">
+            `agentId`,
+         </if>       
+                <if test="agentCode != null">
+            `agentCode`,
+         </if>       
+                <if test="levelId != null">
+            `levelId`,
+         </if>       
+                <if test="identityCardNo != null">
+            `identityCardNo`,
+         </if>       
+                <if test="commandUserId != null">
+            `commandUserId`,
+         </if>       
+                <if test="fax != null">
+            `fax`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+                   <if test="cardNo != null">
+            `cardNo`,
+         </if>   
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="agentId != null">
+            #{agentId,jdbcType=INTEGER},
+            </if>
+                     <if test="agentCode != null">
+            #{agentCode,jdbcType=VARCHAR},
+            </if>
+                     <if test="levelId != null">
+            #{levelId,jdbcType=INTEGER},
+            </if>
+                     <if test="identityCardNo != null">
+            #{identityCardNo,jdbcType=VARCHAR},
+            </if>
+                     <if test="commandUserId != null">
+            #{commandUserId,jdbcType=INTEGER},
+            </if>
+                     <if test="fax != null">
+            #{fax,jdbcType=VARCHAR},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=CHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+                       <if test="cardNo != null">
+            #{cardNo,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.sc.ScAgent">
+    UPDATE scAgent
+        <set>
+                    <if test="agentId != null">
+            agentId = #{agentId,jdbcType=INTEGER},
+             </if> 
+                    <if test="agentCode != null">
+            agentCode = #{agentCode,jdbcType=VARCHAR},
+             </if> 
+                    <if test="levelId != null">
+            levelId = #{levelId,jdbcType=INTEGER},
+             </if> 
+                    <if test="identityCardNo != null">
+            identityCardNo = #{identityCardNo,jdbcType=VARCHAR},
+             </if> 
+                    <if test="commandUserId != null">
+            commandUserId = #{commandUserId,jdbcType=INTEGER},
+             </if> 
+                    <if test="fax != null">
+            fax = #{fax,jdbcType=VARCHAR},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=CHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                      <if test="cardNo != null">
+            cardNo = #{cardNo,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sc.ScAgent">
+		SELECT t.*
+		FROM scAgent t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScAgent">
+		UPDATE scAgent
+		<set>
+			isDeleted = 1
+		</set>
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	<!--代理商人数信息 start -->
+	<select id="agentOneLevel"  resultType="java.lang.Integer" >
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =1;
+	</select>
+	<select id="agentTwoLevel"  resultType="java.lang.Integer" >
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =2;
+	</select>
+	<select id="agentThreeLevel"  resultType="java.lang.Integer" >
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =3;
+	</select>
+	<select id="agentFourLevel"  resultType="java.lang.Integer" >
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =4;
+	</select>
+<!--代理商人数信息 end -->
+<!--代理商人数信息过滤 start -->
+	<select id="agentOneLevelFilter"  resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =1
+    and     <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+
+	<select id="agentTwoLevelFilter"  resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =2
+    and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+
+	<select id="agentThreeLevelFilter"  resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =3
+    and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+
+	<select id="agentFourLevelFilter"  resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+    SELECT ifnull(count(*),0)
+	FROM scAgent
+    WHERE   levelId =4
+    and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+ <!--代理商人数信息过滤 end -->
+ 
+    <!--微信获取代理商信息 start  -->
+    <select id="chatScAgentInf" resultMap="queryResultMap" parameterType="java.lang.String">
+		SELECT t.*
+		FROM scAgent t
+		WHERE agentId = 
+		(SELECT id
+		FROM    user 
+		WHERE userName = #{userName,jdbcType=VARCHAR})
+	</select>
+     <!--微信获取代理商信息 end  -->
+     
+     <!--微信获取下级代理商信息 start  -->
+    <select id="chatScAgentLowerInf" resultMap="queryResultMap" parameterType="java.lang.String">
+		SELECT S.*,U.mobilePhone as fax,U.trueName as cardNo,U.userName as userName
+		FROM
+		(SELECT `agentId`,`agentCode`,`levelId`,`identityCardNo`,`createdTime`
+		FROM scAgent
+		WHERE commandUserId =
+		(SELECT id
+		FROM    user 
+		WHERE userName = #{userName,jdbcType=VARCHAR}))S,user U
+		WHERE S.agentId = U.id
+		
+	</select>
+	
+	    <select id="queryAgentByAgentId" resultType="com.ryt.web.entity.sc.ScAgent" parameterType="java.lang.Integer">
+        SELECT *
+        FROM   scAgent
+        WHERE  agentId = #{agentId,jdbcType=INTEGER}
+	</select>
+</mapper>

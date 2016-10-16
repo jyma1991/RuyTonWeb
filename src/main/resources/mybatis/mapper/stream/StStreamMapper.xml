@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.stream.StStreamDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.stream.StStream">
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="streamId" property="streamId" jdbcType="VARCHAR" />
+                <result column="publishSecurity" property="publishSecurity" jdbcType="VARCHAR" />
+                <result column="publishKey" property="publishKey" jdbcType="VARCHAR" />
+                <result column="publishRtmp" property="publishRtmp" jdbcType="VARCHAR" />
+                <result column="publishRtmpUrl" property="publishRtmpUrl" jdbcType="VARCHAR" />
+                <result column="playRtmp" property="playRtmp" jdbcType="VARCHAR" />
+                <result column="playRtmpUrl" property="playRtmpUrl" jdbcType="VARCHAR" />
+                <result column="playHls" property="playHls" jdbcType="VARCHAR" />
+                <result column="playHlsUrl" property="playHlsUrl" jdbcType="VARCHAR" />
+                <result column="streamStatus" property="streamStatus" jdbcType="VARCHAR" />
+                <result column="title" property="title" jdbcType="VARCHAR" />
+                <result column="description" property="description" jdbcType="VARCHAR" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="addr" property="addr" jdbcType="VARCHAR" />
+                <result column="disabled" property="disabled" jdbcType="INTEGER" />
+                <result column="hub" property="hub" jdbcType="VARCHAR" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+                <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+                <result column="bytesPerSecond" property="bytesPerSecond" jdbcType="FLOAT" />
+                <result column="deviceName" property="deviceName" jdbcType="VARCHAR" />
+                <result column="deviceId" property="deviceId" jdbcType="VARCHAR" />
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+                <result column="classId" property="classId" jdbcType="INTEGER" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM stStream t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM stStream t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.stream.StStream"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO stStream
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="streamId != null">
+            `streamId`,
+         </if>       
+                <if test="publishSecurity != null">
+            `publishSecurity`,
+         </if>       
+                <if test="publishKey != null">
+            `publishKey`,
+         </if>       
+                <if test="publishRtmp != null">
+            `publishRtmp`,
+         </if>       
+                <if test="publishRtmpUrl != null">
+            `publishRtmpUrl`,
+         </if>       
+                <if test="playRtmp != null">
+            `playRtmp`,
+         </if>       
+                <if test="playRtmpUrl != null">
+            `playRtmpUrl`,
+         </if>       
+                <if test="playHls != null">
+            `playHls`,
+         </if>       
+                <if test="playHlsUrl != null">
+            `playHlsUrl`,
+         </if>       
+                <if test="streamStatus != null">
+            `streamStatus`,
+         </if>       
+                <if test="title != null">
+            `title`,
+         </if>       
+                <if test="description != null">
+            `description`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="addr != null">
+            `addr`,
+         </if>       
+                <if test="disabled != null">
+            `disabled`,
+         </if>       
+                <if test="hub != null">
+            `hub`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+             	 <if test="startTime != null">
+            `startTime`,
+         </if>       
+                <if test="bytesPerSecond != null">
+            `bytesPerSecond`,
+         </if>        
+         		<if test="deviceName != null">
+            `deviceName`,
+         </if>   
+         		<if test="deviceId != null">
+            `deviceId`,
+         </if>   
+         		<if test="agentId != null">
+            `agentId`,
+         </if>
+         		<if test="schoolId != null">
+            `schoolId`,
+         </if>
+         		<if test="classId != null">
+            `classId`,
+         </if>         
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="streamId != null">
+            #{streamId,jdbcType=VARCHAR},
+            </if>
+                     <if test="publishSecurity != null">
+            #{publishSecurity,jdbcType=VARCHAR},
+            </if>
+                     <if test="publishKey != null">
+            #{publishKey,jdbcType=VARCHAR},
+            </if>
+                     <if test="publishRtmp != null">
+            #{publishRtmp,jdbcType=VARCHAR},
+            </if>
+                     <if test="publishRtmpUrl != null">
+            #{publishRtmpUrl,jdbcType=VARCHAR},
+            </if>
+                     <if test="playRtmp != null">
+            #{playRtmp,jdbcType=VARCHAR},
+            </if>
+                     <if test="playRtmpUrl != null">
+            #{playRtmpUrl,jdbcType=VARCHAR},
+            </if>
+                     <if test="playHls != null">
+            #{playHls,jdbcType=VARCHAR},
+            </if>
+                     <if test="playHlsUrl != null">
+            #{playHlsUrl,jdbcType=VARCHAR},
+            </if>
+                     <if test="streamStatus != null">
+            #{streamStatus,jdbcType=VARCHAR},
+            </if>
+                     <if test="title != null">
+            #{title,jdbcType=VARCHAR},
+            </if>
+                     <if test="description != null">
+            #{description,jdbcType=VARCHAR},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=CHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="addr != null">
+            #{addr,jdbcType=VARCHAR},
+            </if>
+                     <if test="disabled != null">
+            #{disabled,jdbcType=INTEGER},
+            </if>
+                     <if test="hub != null">
+            #{hub,jdbcType=VARCHAR},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+            		<if test="startTime != null">
+            #{startTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="bytesPerSecond != null">
+            #{bytesPerSecond,jdbcType=FLOAT},
+            </if>
+                     <if test="deviceName != null">
+            #{deviceName,jdbcType=VARCHAR},
+            </if>  
+                     <if test="deviceId != null">
+            #{deviceId,jdbcType=VARCHAR},
+            </if>  
+                     <if test="agentId != null">
+            #{agentId,jdbcType=INTEGER},
+            </if>  
+                     <if test="schoolId != null">
+            #{schoolId,jdbcType=INTEGER},
+            </if>  
+                     <if test="classId != null">
+            #{classId,jdbcType=INTEGER},
+            </if>                                                         
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.stream.StStream">
+    UPDATE stStream
+        <set>
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="streamId != null">
+            streamId = #{streamId,jdbcType=VARCHAR},
+             </if> 
+                    <if test="publishSecurity != null">
+            publishSecurity = #{publishSecurity,jdbcType=VARCHAR},
+             </if> 
+                    <if test="publishKey != null">
+            publishKey = #{publishKey,jdbcType=VARCHAR},
+             </if> 
+                    <if test="publishRtmp != null">
+            publishRtmp = #{publishRtmp,jdbcType=VARCHAR},
+             </if> 
+                    <if test="publishRtmpUrl != null">
+            publishRtmpUrl = #{publishRtmpUrl,jdbcType=VARCHAR},
+             </if> 
+                    <if test="playRtmp != null">
+            playRtmp = #{playRtmp,jdbcType=VARCHAR},
+             </if> 
+                    <if test="playRtmpUrl != null">
+            playRtmpUrl = #{playRtmpUrl,jdbcType=VARCHAR},
+             </if> 
+                    <if test="playHls != null">
+            playHls = #{playHls,jdbcType=VARCHAR},
+             </if> 
+                    <if test="playHlsUrl != null">
+            playHlsUrl = #{playHlsUrl,jdbcType=VARCHAR},
+             </if> 
+                    <if test="streamStatus != null">
+            streamStatus = #{streamStatus,jdbcType=VARCHAR},
+             </if> 
+                    <if test="title != null">
+            title = #{title,jdbcType=VARCHAR},
+             </if> 
+                    <if test="description != null">
+            description = #{description,jdbcType=VARCHAR},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=CHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="addr != null">
+            addr = #{addr,jdbcType=VARCHAR},
+             </if> 
+                    <if test="disabled != null">
+            disabled = #{disabled,jdbcType=INTEGER},
+             </if> 
+                    <if test="hub != null">
+            hub = #{hub,jdbcType=VARCHAR},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+             		<if test="startTime != null">
+            startTime = #{startTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="bytesPerSecond != null">
+            bytesPerSecond = #{bytesPerSecond,jdbcType=FLOAT},
+            </if>  
+                     <if test="deviceName != null">
+            deviceName = #{deviceName,jdbcType=VARCHAR},
+            </if>  
+                     <if test="deviceId != null">
+            deviceId = #{deviceId,jdbcType=VARCHAR},
+            </if>  
+                     <if test="agentId != null">
+            agentId = #{agentId,jdbcType=INTEGER},
+            </if>  
+                     <if test="schoolId != null">
+            schoolId = #{schoolId,jdbcType=INTEGER},
+            </if>  
+                     <if test="classId != null">
+            classId = #{classId,jdbcType=INTEGER},
+            </if>                                                                                       
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.stream.StStream">
+		SELECT t.*
+		FROM stStream t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.stream.StStream">
+		DELETE FROM stStream
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	<select id="getUnDividedStream" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		SELECT t.* 
+		From stStream t
+		WHERE classId is null or classId=#{classId,jdbcType=INTEGER} AND isDeleted = 0
+	</select>
+	<update id="cancelStStreamLink" parameterType="java.lang.Integer">
+		UPDATE stStream
+        <set>
+        	classId = null 
+        </set>
+    	WHERE classId 
+	    <if test="classId != null">
+	        = #{classId,jdbcType=INTEGER}
+	    </if>
+	</update>
+</mapper>

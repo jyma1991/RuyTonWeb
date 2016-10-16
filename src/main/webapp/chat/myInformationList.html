@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+<meta http-equiv="expires" content="0">
+<title>个人信息</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	query();
+});
+function  query(){
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	   var params = {"userName":userName};
+		$.ajax({
+			  type: 'POST',
+			  url: ctx+'chatScAgentInf.do',
+			  data: params,
+			  success:function (result){
+				  $("#agentId_input").val(result.agentId);
+				  $("#agentCode").html(result.agentCode);
+				  if(result.levelId==1){
+				  $("#levelId").html("粉丝");
+				  }else if(result.levelId==2){
+					  $("#levelId").html("小区");
+				  }else if(result.levelId==3){
+					  $("#levelId").html("大区");
+				  }else{
+					  $("#levelId").html("金牌");
+				  }
+				  $("#identityCardNo").html(result.identityCardNo);
+				  $("#commandUserId").html(result.commandUserId);
+				  $("#commandUserId_input").val(result.commandUserId);
+				  $("#userName").html(result.userName);
+				  $("#fax").html(result.fax);
+				  $("#cardNo").html(result.cardNo);
+				  queryInf();
+			  },
+			  dataType: 'json'
+			});
+}
+function queryInf(){
+	var agentId_input = $("#agentId_input").val();
+	$.ajax({
+		 type: 'POST',
+		 url: ctx+'chatGetMessage.do?agentId='+agentId_input,
+		 data:{},
+		 success:function (result){
+			$("#agentName").html(result.trueName);
+		 },
+		 dataType: 'json'
+	});
+	var commandUserId_input = $("#commandUserId_input").val();
+	if(commandUserId_input==null ||commandUserId_input=="" ){
+	}else{
+		$.ajax({
+			 type: 'POST',
+			 url: ctx+'chatGetMessage.do?agentId='+commandUserId_input,
+			 data:{},
+			 success:function (result){
+				$("#commandUserIdName").html(result.trueName);
+			 },
+			 dataType: 'json'
+		});
+	}
+}
+</script>
+</head>
+<body style="padding-bottom:20px;">
+<input type="hidden" id="agentId_input">
+<input type="hidden" id="commandUserId_input">
+<div class="header common">
+	<div style="float:left;margin-top:2px;">个人信息</div>
+	<div class="clear"></div>
+</div>
+	<div class="errorMessage"></div>
+	<div class="pageerror"  style="width: 95%;margin: 10px auto;text-align:center;"></div>
+	<div id="tradlist">
+		<!-- 数据 -->
+		<div class="resultDiv common border">
+				<table class="commonTable" >
+			
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">代理商姓名</td>
+							<td id="agentName"></td>
+						</tr>
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">代理商区域编码</td>
+							<td id="agentCode"></td>
+						</tr>
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">代理商等级</td>
+							<td id="levelId"></td>
+						</tr>
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">身份证号码</td>
+							<td id="identityCardNo"></td>
+						</tr>
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">上级代理商姓名</td>
+							<td id="commandUserIdName"></td>
+						</tr>
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">代理商用户名</td>
+							<td id="userName"></td>
+						</tr>
+						<tr><td colspan="2"><div class="trLine"></div></td></tr>
+						<tr class="tr">
+							<td class="tdleft">代理商卡号</td>
+							<td id="cardNo"></td>
+						</tr>
+				</table>
+				<div class="tdicon"></div>
+		</div>
+	</div>
+	<div id="ajaxSuc" style="width:95%;margin: 10px auto;text-align: center;"></div>
+</body>
+</html>

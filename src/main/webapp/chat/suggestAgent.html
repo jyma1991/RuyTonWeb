@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+<meta http-equiv="expires" content="0">
+<title>推荐代理商</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+$(function(){
+	query();
+});
+function  query(){
+	   $("#agentName").val(window.sessionStorage.getItem("trueName"));
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	   var params = {"userName":userName};
+		$.ajax({
+			  type: 'POST',
+			  url: ctx+'chatScAgentInf.do',
+			  data: params,
+			  success:function (result){
+				  $("#agentId").val(result.agentId);
+				  if(result.levelId==1){
+					  $("#levelId").val("粉丝");
+					  }else if(result.levelId==2){
+						  $("#levelId").val("小区");
+					  }else if(result.levelId==3){
+						  $("#levelId").val("大区");
+					  }else{
+						  $("#levelId").val("金牌");
+					  }
+			  },
+			  dataType:'json'});
+}
+function appoin(){
+	var agentId = $('#agentId').val();
+	var levelId = $('#levelId').val();
+	if(levelId=="粉丝"){
+		levelId=1;
+	}
+	if(levelId=="小区"){
+		levelId=2;
+	}	
+	if(levelId=="大区"){
+		levelId=3;
+	}	
+	if(levelId=="金牌"){
+		levelId=4;
+	}
+	var name = $('#name').val();
+	var cardNo = $('#cardNo').val();
+	var identityCardNo = $('#identityCardNo').val();
+	var phone = $('#phone').val();
+	var params= {"agentId":agentId,"levelId":levelId,"name":name,"identityCardNo":identityCardNo,"cardNo":cardNo,"phone":phone}
+	$.ajax({
+		  type: 'POST',
+		  url: ctx+'chatAgentSubmit.do',
+		  data: params,
+		  success:function (result){
+			console.log(result);
+		   location.href="success.html";
+		  },
+		  error:function(){
+			  location.href="error.html";  
+		  },
+		  dataType: 'json'
+		});
+}
+</script>
+<body>
+<input type="hidden" readonly="readonly"  placeholder="代理商编号"  id="agentId" >
+<div class="header common">
+	<div style="float:left;margin-top:2px;">推荐代理商</div>
+	<div class="clear"></div>
+</div>
+<div class="errorMessage"></div>
+<div class="resultDiv common border">
+	<table class="commonTable" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr class="tr">
+			<td class="tdleft">代理商姓名</td>
+			<td>
+				<input type="text" readonly="readonly"   class="place" id="agentName" style="width:82%"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><div class="trLine" ></div></td>
+		</tr>
+		<tr class="tr">
+			<td class="tdleft">代理商等级</td>
+			<td>
+				<input type="text" readonly="readonly"  placeholder="代理商等级" class="place" id="levelId" style="width:82%"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><div class="trLine"></div></td>
+		</tr>
+		<tr class="tr">
+			<td class="tdleft">被推荐人姓名</td>
+			<td>
+				<input type="hidden" id="oPhone" />
+				<input type="text" placeholder="被推荐人姓名" class="place" id="name" style="width:82%"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><div class="trLine"></div></td>
+		</tr>
+		<tr class="tr">
+			<td class="tdleft">被推荐人卡号</td>
+			<td>
+				<input type="text" placeholder="被推荐人卡号" class="place" id="cardNo" style="width:82%"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><div class="trLine"></div></td>
+		</tr>
+		<tr class="tr">
+			<td class="tdleft">被推荐人身份证号</td>
+			<td>
+				<input type="text" placeholder="被推荐人身份证号" class="place" id="identityCardNo" style="width:82%"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><div class="trLine"></div></td>
+		</tr>
+		<tr class="tr">
+			<td class="tdleft">被推荐人手机</td>
+			<td>
+				<input type="text" placeholder="被推荐人手机" class="place" id="phone" style="width:82%"/>
+			</td>
+		</tr>
+	</table>
+	<div class="tdicon"></div>
+</div>
+<div class="manageBtn manageBtn2" onclick="appoin()" style="background-color: green;">确认</div>
+<p></p>
+<div class="common">
+	<div class="header">提示：</div>
+	<div style="font-weight: normal;margin-top: 4px;">1.为了以后收益还款需要，请务必填写被推荐人本人的银行卡号，同时此银行卡号也作为公司确认该推荐人交款凭证。</div>
+	<div style="font-weight: normal;margin-top: 4px;">2.请如实填写被推荐人电话号码，姓名，身份证号码。</div>
+	<div style="font-weight: normal;margin-top: 4px;">2.如有疑问，请致电400-115-1313，我们会为您详细解答。</div>
+</div>
+</body>
+</html>

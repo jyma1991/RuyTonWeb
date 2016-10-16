@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<params>
+	<thumbSmall>true</thumbSmall>
+	<thumbSmallWidth>65</thumbSmallWidth>
+	<thumbSmallHeight>65</thumbSmallHeight>
+	<thumbMiddle>true</thumbMiddle>
+	<thumbMiddleWidth>300</thumbMiddleWidth>
+	<thumbMiddleHeight>300</thumbMiddleHeight>
+	<thumbBig>false</thumbBig>
+	<thumbBigWidth>600</thumbBigWidth>
+	<thumbBigHeight>600</thumbBigHeight>
+	<filePath>/uploadPackage/plupload</filePath>
+	<relativeFilePath>/uploadPackage/plupload</relativeFilePath>
+	<isModule>false</isModule>
+	<isFunction>false</isFunction>
+	<isYear>true</isYear>
+	<isMonth>true</isMonth>
+	<isDay>false</isDay>
+</params>

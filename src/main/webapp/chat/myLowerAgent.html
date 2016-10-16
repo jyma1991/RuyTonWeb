@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+<meta http-equiv="expires" content="0">
+<title>我的下级代理商</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+<style>
+.enter {
+    width: 19px;
+    height: 19px;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	query();
+});
+function nextLowerAgent(userName){
+	 var params = {"userName":userName};
+	$.ajax({
+		  type: 'POST',
+		  url: ctx+'chatScAgentLowerInf.do',
+		  data: params,
+		  success:function (result){
+			  if(result.length==0){
+				  location.href="noQueryList.html";
+				  return;
+			  }else{
+				  location.href = "nextMyLowerAgent.html?userName=" + userName + "&&";
+			  }
+		  },
+		  dataType:'json'});
+}
+function  query(){
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	   var params = {"userName":userName};
+	   var html = "";
+	   $.ajax({
+			  type: 'POST',
+			  url: ctx+'chatScAgentLowerInf.do',
+			  data: params,
+			  success:function (result){
+			  $.each(result,function(j,n)
+				{
+				  var date = n.createdTime.substring(0,10);
+				  html+='<div class="resultDiv common border"><table class="commonTable"><tr class="tr2"><td>代理商姓名：</td><td colspan="3">'
+				  +checkNull(n.cardNo)+
+				  '</td></tr><tr><td>等级：</td><td colspan="3">'
+				  +transfer(checkNull(n.levelId))+
+				  '</td></tr><tr class="tr2"><td colspan="1">用户名：</td><td colspan="3">'
+				  +checkNull(n.userName)+
+				  '</td></tr><tr><td colspan="1">区域编码：</td><td colspan="2">'
+				  +checkNull(n.agentCode)+
+				  '</td><td align="right" style="padding-right:4%;"><img src="images/enter.jpg" class="enter" onclick="nextLowerAgent('+n.userName+')"/></td></tr><tr class="tr2"><td >身份证号：</td><td colspan="3">'
+				  +checkNull((n.identityCardNo).substring(0,8))+
+				  '****</td></tr class="tr2"><tr><td >手机号：</td><td colspan="3">'
+				  +checkNull(n.fax)+
+				  '</td></tr><tr class="tr2"><td colspan="2">成为代理商时间：</td><td colspan="2">'
+				  +date+
+				  '</td></tr><div class="tdicon"></div></table><div class="tdicon"></div></div>';
+				}	  
+			  );
+			  $('#tradlist').html(html);
+			  },
+			  dataType:'json'});
+}
+function checkNull(data){
+	return (data==undefined?"":data);
+}
+function transfer(data){
+	if(data==1){
+		return "粉丝";
+	}
+	if(data==2){
+		return "小区";
+	}
+	if(data==3){
+		return "大区";
+	}
+	if(data==4){
+		return "金牌";
+	}
+}
+</script>
+</head>
+<body style="padding-bottom:20px;">
+<div class="header common">
+	<div style="float:left;margin-top:2px;">我的下级代理商</div>
+	<div class="clear"></div>
+</div>
+	<div class="errorMessage"></div>
+	<div class="pageerror"style="width: 95%;margin: 10px auto;text-align:center;"></div>
+	<div id="tradlist" id="tradlist">
+		<!-- êy?Y -->
+		<!--<div class="resultDiv common border">
+				<table class="commonTable">
+						<tr class="tr2">
+								<td width="25%">?§D￡±ào?￡o</td>
+								<td width="25%"></td>
+								<td width="25%">′úàíéì±ào?￡o</td>
+								<td width="25%"></td>
+						</tr>
+						<tr class="tr2">
+								<td>?§D￡ààDí￡o</td>
+								<td></td>
+								<td>?§D￡′ú??￡o</td>
+								<td></td>
+						</tr>
+						<tr class="tr2">
+								<td>?§D￡μè??￡o</td>
+								<td></td>
+								<td>óaòμ?′??￡o</td>
+								<td></td>
+						</tr>
+						<tr class="tr2">
+								<td>?§D￡??3?￡o</td>
+								<td colspan="3"></td>
+						</tr>
+						<tr class="tr2">
+								<td>′???￡o</td>
+								<td colspan="3"></td>
+						</tr>
+				</table>
+				<div class="tdicon"></div>
+		</div>
+		<div class="resultDiv common border">
+				<table class="commonTable">
+						<tr class="tr2">
+								<td width="25%">±ào?￡o</td>
+								<td width="25%"></td>
+								<td width="25%">?§D￡±ào?￡o</td>
+								<td width="25%"></td>
+						</tr>
+						<tr class="tr2">
+								<td>′úàíéì±ào?￡o</td>
+								<td></td>
+								<td>?§D￡ààDí￡o</td>
+								<td></td>
+						</tr>
+						<tr class="tr2">
+								<td>?§D￡′ú??￡o</td>
+								<td></td>
+								<td>?§D￡μè??￡o</td>
+								<td></td>
+						</tr>
+						<tr class="tr2">
+								<td>?§D￡??3?￡o</td>
+								<td colspan="3"></td>
+						</tr>
+						<tr class="tr2">
+								<td>óaòμ?′??￡o</td>
+								<td colspan="3"></td>
+						</tr>
+						<tr class="tr2">
+								<td>′???￡o</td>
+								<td colspan="3"></td>
+						</tr>
+						<div class="tdicon"></div>
+				</table>
+		</div>-->
+	</div>
+	<div id="ajaxSuc" style="width:95%;margin: 10px auto;text-align: center;"></div>
+</body>
+</html>

@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.app.dao.AppArticleBaseDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.article.ArticleBase">
+		<result column="subject" property="subject" jdbcType="VARCHAR" />
+		<result column="picId" property="picId" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="brief" property="brief" jdbcType="VARCHAR" />
+		<result column="keyWords" property="keyWords" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="hits" property="hits" jdbcType="INTEGER" />
+		<result column="parentId" property="parentId" jdbcType="INTEGER" />
+		<result column="articleProperty" property="articleProperty"
+			jdbcType="INTEGER" />
+		<result column="articleReceiver" property="articleReceiver"
+			jdbcType="INTEGER" />
+		<result column="sysClassId" property="sysClassId" jdbcType="INTEGER" />
+		<result column="studentId" property="studentId" jdbcType="INTEGER" />
+		<result column="agentId" property="agentId" jdbcType="INTEGER" />
+		<result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+		<result column="classId" property="classId" jdbcType="INTEGER" />
+		<result column="teacherId" property="teacherId" jdbcType="INTEGER" />
+		<result column="location" property="location" jdbcType="VARCHAR" />
+		<result column="lng" property="lng" jdbcType="VARCHAR" />
+		<result column="lat" property="lat" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- SysUpload表的一些定义 -->
+	<resultMap id="sysUploadResultMap" type="com.ryt.web.entity.sys.SysUpload">
+		<result column="clientName" property="clientName" jdbcType="VARCHAR" />
+		<result column="serverName" property="serverName" jdbcType="VARCHAR" />
+		<result column="fileExt" property="fileExt" jdbcType="VARCHAR" />
+		<result column="fileSize" property="fileSize" jdbcType="INTEGER" />
+		<result column="fileWidth" property="fileWidth" jdbcType="INTEGER" />
+		<result column="fileHeight" property="fileHeight" jdbcType="INTEGER" />
+		<result column="moduleId" property="moduleId" jdbcType="VARCHAR" />
+		<result column="funcId" property="funcId" jdbcType="VARCHAR" />
+		<result column="dataId" property="dataId" jdbcType="VARCHAR" />
+		<result column="fileFullPath" property="fileFullPath" jdbcType="VARCHAR" />
+		<result column="zipId" property="zipId" jdbcType="INTEGER" />
+		<result column="proCode" property="proCode" jdbcType="VARCHAR" />
+		<result column="proFileType" property="proFileType" jdbcType="VARCHAR" />
+		<result column="createdBy" property="createdBy" jdbcType="VARCHAR" />
+		<result column="fileTypes" property="fileTypes" jdbcType="VARCHAR" />
+		<result column="customerId" property="customerId" jdbcType="INTEGER" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="operaterIid" property="operaterIid" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="userResultMap" type="com.ryt.web.entity.user.User">
+		<result column="nickName" property="nickName" jdbcType="VARCHAR" />
+		<result column="trueName" property="trueName" jdbcType="VARCHAR" />
+		<result column="userPwd" property="userPwd" jdbcType="VARCHAR" />
+		<result column="roleProperty" property="roleProperty" jdbcType="INTEGER" />
+		<result column="avatar" property="avatar" jdbcType="INTEGER" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="provinceId" property="provinceId" jdbcType="INTEGER" />
+		<result column="districtId" property="districtId" jdbcType="INTEGER" />
+		<result column="cityId" property="cityId" jdbcType="INTEGER" />
+		<result column="addressDetail" property="addressDetail"
+			jdbcType="VARCHAR" />
+		<result column="fixedPhone" property="fixedPhone" jdbcType="VARCHAR" />
+		<result column="mobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="weiXin" property="weiXin" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="lastLoginDate" property="lastLoginDate"
+			jdbcType="TIMESTAMP" />
+		<result column="token" property="token" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="scAboutResult" type="com.ryt.web.entity.sys.SysClass">
+		<result column="parentId" property="parentId" jdbcType="INTEGER" />
+		<result column="className" property="className" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="urlTarget" property="urlTarget" jdbcType="VARCHAR" />
+		<result column="sysClassTypeId" property="sysClassTypeId"
+			jdbcType="INTEGER" />
+		<result column="formObjectList" property="formObjectList"
+			jdbcType="VARCHAR" />
+		<result column="classProperty" property="classProperty"
+			jdbcType="INTEGER" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+		<result column="cid" property="cid" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM articleBase t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM articleBase t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.article.ArticleBase"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO articleBase
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="subject != null">
+				`subject`,
+			</if>
+			<if test="picId != null">
+				`picId`,
+			</if>
+			<if test="author != null">
+				`author`,
+			</if>
+			<if test="source != null">
+				`source`,
+			</if>
+			<if test="brief != null">
+				`brief`,
+			</if>
+			<if test="keyWords != null">
+				`keyWords`,
+			</if>
+			<if test="content != null">
+				`content`,
+			</if>
+			<if test="studentId != null">
+				`studentId`,
+			</if>
+			<if test="hits != null">
+				`hits`,
+			</if>
+			<if test="parentId != null">
+				`parentId`,
+			</if>
+			<if test="articleProperty != null">
+				`articleProperty`,
+			</if>
+			<if test="articleReceiver != null">
+				`articleReceiver`,
+			</if>
+			<if test="sysClassId != null">
+				`sysClassId`,
+			</if>
+			<if test="agentId != null">
+				`agentId`,
+			</if>
+			<if test="schoolId != null">
+				`schoolId`,
+			</if>
+			<if test="classId != null">
+				`classId`,
+			</if>
+			<if test="teacherId != null">
+				`teacherId`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="operaterId != null">
+				`operaterId`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+			<if test="location != null">
+				`location`,
+			</if>
+			<if test="lng != null">
+				`lng`,
+			</if>
+			<if test="lat != null">
+				`lat`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="subject != null">
+				#{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="picId != null">
+				#{picId,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="brief != null">
+				#{brief,jdbcType=VARCHAR},
+			</if>
+			<if test="keyWords != null">
+				#{keyWords,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="hits != null">
+				#{hits,jdbcType=INTEGER},
+			</if>
+			<if test="studentId != null">
+				#{studentId,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="articleProperty != null">
+				#{articleProperty,jdbcType=INTEGER},
+			</if>
+			<if test="articleReceiver != null">
+				#{articleReceiver,jdbcType=INTEGER},
+			</if>
+
+			<if test="sysClassId != null">
+				#{sysClassId,jdbcType=INTEGER},
+			</if>
+			<if test="agentId != null">
+				#{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null">
+				#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="classId != null">
+				#{classId,jdbcType=INTEGER},
+			</if>
+			<if test="teacherId != null">
+				#{teacherId,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				#{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+			<if test="lng != null">
+				#{lng,jdbcType=VARCHAR},
+			</if>
+			<if test="lat != null">
+				#{lat,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.article.ArticleBase">
+		UPDATE articleBase
+		<set>
+			<if test="subject != null">
+				subject = #{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="picId != null">
+				picId = #{picId,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				author = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="brief != null">
+				brief = #{brief,jdbcType=VARCHAR},
+			</if>
+			<if test="keyWords != null">
+				keyWords = #{keyWords,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="hits != null">
+				hits = #{hits,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				parentId = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="articleProperty != null">
+				articleProperty = #{articleProperty,jdbcType=INTEGER},
+			</if>
+			<if test="articleReceiver != null">
+				articleReceiver = #{articleReceiver,jdbcType=INTEGER},
+			</if>
+			<if test="sysClassId != null">
+				sysClassId = #{sysClassId,jdbcType=INTEGER},
+			</if>
+			<if test="agentId != null">
+				agentId = #{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null">
+				schoolId = #{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="classId != null">
+				classId = #{classId,jdbcType=INTEGER},
+			</if>
+			<if test="teacherId != null">
+				teacherId = #{teacherId,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				operaterId = #{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				location = #{location,jdbcType=VARCHAR},
+			</if>
+			<if test="lng != null">
+				lng = #{lng,jdbcType=VARCHAR},
+			</if>
+			<if test="lat != null">
+				lat = #{lat,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT t.*
+		FROM articleBase t
+		WHERE id =
+		#{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.article.ArticleBase">
+		DELETE FROM articleBase
+		WHERE id =
+		<if test="id != null">
+			#{id,jdbcType=INTEGER}
+		</if>
+	</delete>
+
+
+
+	<select id="getPicsUrlByIds" resultMap="sysUploadResultMap"
+		parameterType="java.util.Collection">
+		SELECT * FROM sysUpload where id in
+		<foreach item="item" index="index" collection="picIds" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<!-- 通过孩子的id查找孩子的信息 -->
+	<select id="getUserById" resultMap="userResultMap"
+		parameterType="java.lang.Integer">
+		SELECT * FROM user where
+		id=#{studentId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase
+		a,scStudent s
+		Where
+		(a.schoolId=#{schoolId,jdbcType=INTEGER} and
+		a.articleReceiver=4
+		or
+		a.articleReceiver=2 and
+		a.classId=#{classId,jdbcType=INTEGER} or
+		a.articleReceiver=1 and
+		a.userId=#{userId,jdbcType=INTEGER})
+		and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and
+		a.isDeleted = 0 
+		<if test="firstLastId != null">
+			<![CDATA[ and a.id<#{firstLastId,jdbcType=INTEGER} ]]> 
+		</if>
+		order by
+		a.id desc
+		LIMIT
+		0,#{pageCount,jdbcType=INTEGER};
+	</select>
+	<!-- 園長分頁查詢家長圈 -->
+	<select id="findByPageBySchool" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase a where
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER} and a.isDeleted = 0
+		<if test="firstLastId != null">
+			<![CDATA[ and a.id<#{firstLastId,jdbcType=INTEGER} ]]> 
+		</if>
+		and (a.schoolId=#{schoolId,jdbcType=INTEGER}
+		and a.articleReceiver=4 or a.userId=#{userId,jdbcType=INTEGER} and
+		a.articleReceiver=1
+		or a.articleReceiver=2 and a.classId=0 and
+		a.schoolId=#{schoolId,jdbcType=INTEGER}
+		)
+		order by
+		a.id desc
+		LIMIT
+		0,#{pageCount,jdbcType=INTEGER};
+	</select>
+
+	<!-- 老师分頁查詢家長圈 -->
+	<select id="findByPageByTeacher" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase a
+		Where
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER} and a.isDeleted = 0 
+		<if test="firstLastId != null">
+			<![CDATA[ and a.id<#{firstLastId,jdbcType=INTEGER} ]]> 
+		</if>
+		and
+		(a.schoolId=#{schoolId,jdbcType=INTEGER} and a.articleReceiver=4
+		or
+		a.userId=#{userId,jdbcType=INTEGER} and a.articleReceiver=1
+		or
+		a.userId=#{userId,jdbcType=INTEGER} and a.classId=0 and
+		a.articleReceiver=2 )
+		order by
+		a.id desc
+		LIMIT
+		0,#{pageCount,jdbcType=INTEGER};
+	</select>
+
+	<!-- 查询所有该用户能看到的所有信息 -->
+	<select id="getAllCircleListCount" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		SELECT count(DISTINCT(a.id)) FROM articleBase a where
+		(a.schoolId=#{schoolId,jdbcType=INTEGER} and a.articleReceiver=4
+		or
+		a.articleReceiver=2 and a.classId=#{classId,jdbcType=INTEGER}
+		or
+		a.articleReceiver=1 and a.userId=#{userId,jdbcType=INTEGER})
+		and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and
+		a.isDeleted = 0
+		
+	</select>
+	<!-- 园长能看到的所有家长圈信息格式 -->
+	<select id="getAllCircleListCountBySchool" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		SELECT count(DISTINCT(a.id)) FROM articleBase a where
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER} and a.isDeleted = 0
+		and
+		(a.schoolId=#{schoolId,jdbcType=INTEGER} and a.articleReceiver=4 or a.userId=#{userId,jdbcType=INTEGER} and
+		a.articleReceiver=1
+		or a.articleReceiver=2 and a.classId=0 and
+		a.schoolId=#{schoolId,jdbcType=INTEGER}
+		)
+	</select>
+
+	<!--获取老师可见家长圈个数 -->
+	<select id="getAllCircleListCountByTeacher" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		select count(DISTINCT(a.id)) from articleBase a
+		where a.isDeleted=0 and a.sysClassId=#{sysClassId,jdbcType=INTEGER} and
+		(a.schoolId=#{schoolId,jdbcType=INTEGER} and a.articleReceiver=4
+		or
+		a.userId=#{userId,jdbcType=INTEGER} and a.articleReceiver=1
+		or
+		a.userId=#{userId,jdbcType=INTEGER} and a.classId=0 and
+		a.articleReceiver=2 )
+
+
+	</select>
+
+
+	<select id="getNewCircleInfoList" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase
+		a,scStudent s
+		Where a.id>#{lastId,jdbcType=INTEGER} and a.isDeleted=0 and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and (
+		a.schoolId=#{schoolId,jdbcType=INTEGER} and a.articleReceiver=4
+		or
+		a.articleReceiver=2 and a.classId=#{classId,jdbcType=INTEGER}
+		or
+		a.articleReceiver=1 and a.userId=#{userId,jdbcType=INTEGER}
+		)
+		order by
+		a.id desc
+	</select>
+
+	<select id="getNewCircleInfoListByTeacher" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase a
+		Where
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER} and a.isDeleted = 0 and
+		a.id>#{lastId,jdbcType=INTEGER}
+		and
+		(a.schoolId=#{schoolId,jdbcType=INTEGER} and a.articleReceiver=4
+		or a.userId=#{userId,jdbcType=INTEGER} and a.articleReceiver=1 or
+		a.userId=#{userId,jdbcType=INTEGER} and a.classId=0 and
+		a.articleReceiver=2
+		)
+		order by
+		a.id desc
+	</select>
+
+	<select id="getNewCircleInfoListBySchool" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase a where
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER} and a.isDeleted = 0 and
+		a.id>#{lastId,jdbcType=INTEGER}
+		and
+		(a.schoolId=#{schoolId,jdbcType=INTEGER}
+		and a.articleReceiver=4 or a.userId=#{userId,jdbcType=INTEGER} and
+		a.articleReceiver=1
+		or a.articleReceiver=2 and a.schoolId=#{schoolId,jdbcType=INTEGER} and
+		a.classId=0
+		)
+		order by
+		a.id desc
+	</select>
+	<select id="getScAbout" resultMap="scAboutResult"
+		parameterType="com.ryt.web.entity.sys.SysClass">
+		select *,(select count(*)
+		from sysClass
+		where parentid =
+		s.id) as cid
+		from `sysClass` s where
+		s.sysClassTypeId
+		=#{sysClassTypeId,jdbcType=INTEGER}
+		and
+		s.isDeleted=0
+		and
+		s.userId=#{userId,jdbcType=INTEGER}
+		and s.parentid =
+		#{parentId,jdbcType=INTEGER}
+		order by s.sortId ,s.id asc
+	</select>
+	<select id="getScArticle" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		select *,(select count(*)
+		from sysClass
+		where parentid =
+		s.id) as cid
+		from `sysClass` s where
+		s.sysClassTypeId
+		=#{sysClassTypeId,jdbcType=INTEGER}
+		and
+		s.userId=#{userId,jdbcType=INTEGER}
+		and s.parentid =
+		#{parentId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 查询所有该用户自己的新鲜事 -->
+	<select id="getAllMyCircleListCount" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		SELECT DISTINCT(count(a.id)) FROM articleBase a where
+		a.userId=#{userId,jdbcType=INTEGER} and a.sysClassId =
+		#{sysClassId,jdbcType=INTEGER} and a.isDeleted=0
+	</select>
+
+	<select id="findMyCircleInfoByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.* FROM articleBase a where
+		a.userId=#{userId,jdbcType=INTEGER} and a.sysClassId =
+		#{sysClassId,jdbcType=INTEGER} and a.isDeleted=0
+		order by a.id
+		desc
+		LIMIT
+		#{firstResult,jdbcType=INTEGER},#{pageCount,jdbcType=INTEGER};
+
+
+	</select>
+
+	<!-- 分页查询园长信箱内容 -->
+	<select id="findSuggestByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT * FROM articleBase a where
+		a.userId=#{userId,jdbcType=INTEGER} and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and a.isDeleted=0
+		order by
+		a.id desc
+		LIMIT
+		#{firstResult,jdbcType=INTEGER},#{pageCount,jdbcType=INTEGER};
+
+	</select>
+
+	<!--查询该用户信箱总大小 -->
+	<select id="getSuggestTotalPage" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		SELECT count(a.id) FROM articleBase a where
+		a.userId=#{userId,jdbcType=INTEGER} and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and a.isDeleted=0
+
+	</select>
+
+	<!-- 一个园的所有园长信箱内容数量 -->
+	<select id="getSuggestCountBySchoolId" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		SELECT count(a.id) FROM articleBase a where
+		a.schoolId=#{schoolId,jdbcType=INTEGER} and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 一个园的所有园长信箱内容 -->
+	<select id="findSuggestBySchoolId" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT * FROM articleBase a where
+		a.schoolId=#{schoolId,jdbcType=INTEGER} and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and a.isDeleted=0
+		order by a.id desc
+		LIMIT
+		#{firstResult,jdbcType=INTEGER},#{pageCount,jdbcType=INTEGER};
+
+	</select>
+
+	<!-- 查询该用户的意见信息数量 -->
+	<select id="findFeedBackCount" resultType="java.lang.Integer"
+		parameterType="org.durcframework.core.expression.ExpressionQuery">
+		SELECT count(a.id) FROM articleBase a where
+		a.userId=#{userId,jdbcType=INTEGER} and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and a.isDeleted=0
+	</select>
+
+	<!-- 分页查询园长信箱内容 -->
+	<select id="findFeedBackByPage" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT * FROM articleBase a where
+		a.userId=#{userId,jdbcType=INTEGER} and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER}
+		and a.isDeleted=0
+		order by
+		a.id desc
+		LIMIT
+		#{firstResult,jdbcType=INTEGER},#{pageCount,jdbcType=INTEGER};
+
+	</select>
+
+
+	<!-- 关于政教通 -->
+	<select id="aboutMe" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM articleBase a where
+		a.sysClassId=#{sysClassType,jdbcType=INTEGER}
+		and a.isDeleted=0
+	</select>
+
+	<!-- 关于政教通 -->
+	<select id="getArticleBySysClassId" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.sys.SysClass">
+		SELECT * FROM articleBase a where
+		a.sysClassId=#{id,jdbcType=INTEGER}
+		and a.isDeleted=0
+	</select>
+	<select id="getSysClassByTypeId" resultMap="scAboutResult"
+		parameterType="com.ryt.web.entity.sys.SysClass">
+		select *,(select count(*)
+		from sysClass
+		where parentid =
+		s.id) as cid
+		from `sysClass` s where
+		s.sysClassTypeId
+		=#{sysClassTypeId,jdbcType=INTEGER}
+		and s.parentid =
+		#{parentId,jdbcType=INTEGER}
+		and s.isDeleted=0
+	</select>
+
+	<update id="deleteArticleByParentId" parameterType="java.lang.Integer">
+		UPDATE
+		articleBase a set a.isDeleted=1 where
+		a.parentId=#{articleId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getNewForumInfoList" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase
+		a,scStudent s
+		Where a.id>#{lastId,jdbcType=INTEGER} and a.isDeleted=0 and
+		a.sysClassId=#{sysClassId,jdbcType=INTEGER} order by a.id desc
+	</select>
+	
+	<select id="getNewForumReplyList" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase
+		a,scStudent s
+		Where a.id>#{lastId,jdbcType=INTEGER} and a.isDeleted=0 and
+		a.parentId=#{parentId,jdbcType=INTEGER} order by a.id desc
+	</select>
+	
+	<select id="getOldForumReplyList" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT DISTINCT(a.id),a.*
+		FROM articleBase
+		a,scStudent s
+		Where <![CDATA[a.id<#{firstLastId,jdbcType=INTEGER}]]> and a.isDeleted=0 and
+		a.parentId=#{parentId,jdbcType=INTEGER} order by a.id desc
+		LIMIT 0,#{pageCount,jdbcType=INTEGER};
+	</select>
+	<select id="getScrollForumBanner" resultMap="queryResultMap" parameterType="com.ryt.web.entity.article.ArticleBase">
+		SELECT a.*
+		FROM articleBase a
+		Where a.parentId=0 
+		and a.isDeleted=0 
+		and a.articleProperty=8 
+		and a.picId != ''
+		order by a.id desc
+		LIMIT 0,3;
+	</select>
+</mapper>

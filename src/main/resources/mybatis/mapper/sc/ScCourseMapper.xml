@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScCourseDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScCourse">
+                <result column="courseName" property="courseName" jdbcType="VARCHAR" />
+                <result column="schoolId" property="schoolId" jdbcType="INTEGER"/>
+                <result column="length" property="length" jdbcType="INTEGER" />
+                <result column="price" property="price" jdbcType="INTEGER" />
+                <result column="teacherId" property="teacherId" jdbcType="INTEGER" />
+                <result column="remark" property="remark" jdbcType="VARCHAR" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="img" property="img" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scCourse t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scCourse t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.sc.ScCourse"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO scCourse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="courseName != null">
+            `courseName`,
+         </if>       
+         		<if test="schoolId != null">
+            `schoolId`,
+         </if>       
+                <if test="length != null">
+            `length`,
+         </if>       
+                <if test="price != null">
+            `price`,
+         </if>       
+                <if test="teacherId != null">
+            `teacherId`,
+         </if>       
+                <if test="remark != null">
+            `remark`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if> 
+          		<if test="img != null">
+            `img`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="courseName != null">
+            #{courseName,jdbcType=VARCHAR},
+            </if>
+            		<if test="schoolId != null">
+            #{schoolId,jdbcType=INTEGER},
+            </if>
+                     <if test="length != null">
+            #{length,jdbcType=INTEGER},
+            </if>
+                     <if test="price != null">
+            #{price,jdbcType=INTEGER},
+            </if>
+                     <if test="teacherId != null">
+            #{teacherId,jdbcType=INTEGER},
+            </if>
+                     <if test="remark != null">
+            #{remark,jdbcType=VARCHAR},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=CHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="img != null">
+            #{img,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.sc.ScCourse">
+    UPDATE scCourse
+        <set>
+                    <if test="courseName != null">
+            courseName = #{courseName,jdbcType=VARCHAR},
+             </if> 
+             		<if test="schoolId != null">
+            schoolId = #{schoolId,jdbcType=INTEGER},
+             </if> 
+                    <if test="length != null">
+            length = #{length,jdbcType=INTEGER},
+             </if> 
+                    <if test="price != null">
+            price = #{price,jdbcType=INTEGER},
+             </if> 
+                    <if test="teacherId != null">
+            teacherId = #{teacherId,jdbcType=INTEGER},
+             </if> 
+                    <if test="remark != null">
+            remark = #{remark,jdbcType=VARCHAR},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=CHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+             		<if test="img != null">
+            img = #{img,jdbcType=VARCHAR},
+            </if>
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sc.ScCourse">
+		SELECT t.*
+		FROM scCourse t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScCourse">
+		UPDATE scCourse
+		<set>
+			isDeleted = 1
+		</set>
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+
+</mapper>

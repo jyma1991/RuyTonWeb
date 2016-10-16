@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+<meta http-equiv="expires" content="0">
+<title>交易记录</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+<script>
+
+$(function(){
+	query();
+	withdraw();
+});
+function  query(){
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	   var params = {"userName":userName};
+	   var html = "";
+	   var totalAmt=0;
+	   $.ajax({
+			  type: 'POST',
+			  url: ctx+'chatAgentIncomeInf.do',
+			  data: params,
+			  success:function (result){
+			  $.each(result,function(j,n)
+				{
+				  //var date = n.createdTime.substring(0,10);
+				  //<tr><td>代理商姓名：</td><td colspan="3">'+window.sessionStorage.getItem("trueName")+'</td></tr>
+				  html+='<div class="resultDiv common border"><table class="commonTable"><tr><td>金额：</td><td colspan="3">'
+				  +checkNull(n.income/100)+
+				  '元</td></tr><tr><td>收益种类：</td><td colspan="3">'
+				  +transferType(n.saleType)+
+				  '</td></tr><tr><td colspan="1">入账来源：</td><td colspan="3">'
+				  +n.name+
+				  '</td></tr><tr><td colspan="1">入账时间：</td><td colspan="3">'
+				  +n.createdTime+
+				  '</td></tr><div class="tdicon"></div></table><div class="tdicon"></div></div>';
+				  totalAmt +=n.income/100; 
+				  $('#inputTotalAmt').val(totalAmt);
+				  $('#agentId').val(n.agentId);
+				}	  
+			  );
+			  $('#resultList').html(html);
+			  $('#totalAmt').html(totalAmt+'元');
+			  $('#inputTotalAmt').val(totalAmt);
+			  },
+			  dataType:'json'});
+	
+}
+function withdraw(){
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	   var params = {"userName":userName};
+	   var withdrawAmt=0;
+	   $.ajax({
+			  type: 'POST',
+			  url: ctx+'chatWithdrawInf.do',
+			  data: params,
+			  success:function (result){
+				  $.each(result,function(j,n)
+							{
+							  withdrawAmt +=n.withdrawAmt/100; 
+							
+							}
+				 
+						  );
+				  $('#withdrawAmt').html(withdrawAmt+'元');
+				  $('#inputWithdrawAmt').val(withdrawAmt);
+			  },
+			  dataType:'json'});
+	 
+}
+function checkNull(data){
+	return (data==undefined?"":data);
+}
+function transferType(data){
+	if(data==1){
+		return "代理商推荐";}
+    if(data==3){
+    	return "服务费提成";
+    }
+  
+    if(data==5){
+    	return "代理商间接推荐";
+    }
+    
+    if(data==6){
+    	return "服务费直接分销";
+    }
+    
+    if(data==7){
+    	return "服务费间接分销";
+    }
+    if(data==8){
+    	return "服务费再间接分销";
+    }
+    if(data==9){
+    	return "衍生品直接分销";
+    }
+    if(data==10){
+    	return "衍生品间接分销";
+    }
+    if(data==11){
+    	return "衍生品再间接分销";
+    }
+    if(data==14){
+    	return "衍生品销售收益";
+    }
+
+	}
+function appoin(){
+	var submitAmt = $('#amt').val();
+	
+	if(submitAmt==null||submitAmt==""){
+		alert("提现金额不能为空");
+		return;
+	}
+	if($('#inputTotalAmt').val()-$('#inputWithdrawAmt').val()<submitAmt){
+		alert("余额不足");
+		return;
+	}else{
+		  params={"agentId":$('#agentId').val(),"amt":submitAmt*100}
+		  $.ajax({
+			  type: 'POST',
+			  url: ctx+'submitWithdraw.do',
+			  data: params,
+			  success:function (result){
+				  location.href="success.html";
+			  },
+			  dataType:'json'});
+	}
+}
+</script>
+</head>
+<body style="padding-bottom:20px;">
+<input type="hidden" id="inputWithdrawAmt"/>
+<input type="hidden" id="inputTotalAmt"/>
+<input type="hidden" id="agentId"/>
+<div class="header common">
+	<div style="float:left;width:30%;margin-top:2px;">我的佣金</div>
+	<div class="clear"></div>
+</div>
+	<div class="errorMessage"></div>
+	<div class="pageerror" style="width: 95%;margin: 10px auto;text-align:center;"></div>
+	<div id="tradlist">
+		<!-- êy?Y -->
+		<div class="resultDiv common border">
+				<table class="commonTable">
+						<tr class="tr2">
+								<td >总金额：</td>
+								<td  id="totalAmt"></td>
+						</tr>
+						<tr class="tr2">
+								<td >已提现金额：</td>
+								<td  id="withdrawAmt"></td>
+							
+						</tr>
+						<tr class="tr2">
+							<td >
+								<input type="text" placeholder="请输入提现金额" class="place" id="amt" style="width:50%;border: 2px solid #F0F0F0;border-radius:4px;"/>
+							</td>
+							<td >
+								<div class="manageBtn" onclick="appoin()" style="background-color: #7BB71E;height:34px;line-height: 34px;width:100%;margin: 0px auto;font-size: 15px;float: left;border-radius:4px;">提现</div>
+							</td>
+						</tr>
+				</table>
+				<div class="tdicon"></div>
+		</div>
+		<div class="resultDiv common border" id="resultList">
+		</div>
+		
+		
+	</div>
+	<div id="ajaxSuc" style="width:95%;margin: 10px auto;text-align: center;"></div>
+</body>
+</html>

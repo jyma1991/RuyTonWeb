@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScStudentParentsDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScStudentParents">
+		<result column="studentId" property="studentId" jdbcType="INTEGER" />
+		<result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+		<result column="relatedTypeId" property="relatedTypeId"
+			jdbcType="INTEGER" />
+		<result column="parentId" property="parentId" jdbcType="INTEGER" />
+		<result column="cardNo" property="cardNo" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="CHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+		<result column="vipEndDate" property="vipEndDate" jdbcType="VARCHAR" />
+		<result column="bindCardDate" property="bindCardDate" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scStudentParents t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scStudentParents t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.sc.ScStudentParents"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO scStudentParents
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="studentId != null">
+				`studentId`,
+			</if>
+			<if test="schoolId != null">
+				`schoolId`,
+			</if>
+			<if test="relatedTypeId != null">
+				`relatedTypeId`,
+			</if>
+			<if test="parentId != null">
+				`parentId`,
+			</if>
+			<if test="cardNo != null">
+				`cardNo`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="operaterId != null">
+				`operaterId`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+			<if test="vipEndDate != null">
+				`vipEndDate`,
+			</if>
+			<if test="bindCardDate != null">
+				`bindCardDate`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="studentId != null">
+				#{studentId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null">
+				#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="relatedTypeId != null">
+				#{relatedTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="cardNo != null">
+				#{cardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				#{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="vipEndDate != null">
+				#{vipEndDate,jdbcType=VARCHAR},
+			</if>
+			<if test="bindCardDate != null">
+				#{bindCardDate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.sc.ScStudentParents">
+		UPDATE scStudentParents
+		<set>
+			<if test="studentId != null">
+				studentId = #{studentId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null">
+				schoolId = #{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="relatedTypeId != null">
+				relatedTypeId = #{relatedTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				parentId = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="cardNo != null">
+				cardNo =#{cardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				operaterId = #{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="vipEndDate != null">
+				vipEndDate = #{vipEndDate,jdbcType=VARCHAR},
+			</if>
+			<if test="bindCardDate != null">
+				bindCardDate = #{bindCardDate,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.sc.ScStudentParents">
+		SELECT t.*
+		FROM scStudentParents t
+		WHERE id =
+		#{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScStudentParents">
+		UPDATE scStudentParents set isDeleted = 1
+		WHERE id =
+		<if test="id != null">
+			#{id,jdbcType=INTEGER}
+		</if>
+	</delete>
+
+	<!-- 通过卡号查找该用户 -->
+	<select id="getByCardNo" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.sc.ScSignInOut">
+		select * from scStudentParents where
+		cardNo=#{cardNo,jdbcType=INTEGER} and isDeleted = 0
+	</select>
+	
+	<select id="getParentsByCondition" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.sc.ScStudentParentsSch">
+		select * from scStudentParents p,scStudent s<if test="userIdSch != 0">,scSchool t</if> 
+		where p.studentId = s.studentId
+		<if test="userIdSch != 0">
+		and t.agentId = #{userIdSch,jdbcType=INTEGER}
+		and t.schoolId = s.schoolId	
+		</if> 
+		<if test="studentIdSch != 0">
+		and s.schoolId = #{studentIdSch,jdbcType=INTEGER}
+		</if>
+		<if test="parentIdSch != 0">
+		and s.classId = #{parentIdSch,jdbcType=INTEGER}
+		</if>
+		<if test="createdStartSch != null and createdStartSch != ''">
+		and p.createdTime >= #{createdStartSch,jdbcType=VARCHAR}
+		</if>
+		<if test="createdEndSch != null and createdEndSch != ''">
+		and  <![CDATA[ p.createdTime <= #{createdEndSch,jdbcType=VARCHAR} ]]> 
+		</if>
+		LIMIT
+		#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getParentsByAgentId" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		SELECT p.*
+		FROM scStudentParents p,scStudent t,scSchool s
+		WHERE p.isDeleted = 0
+		And s.agentId = #{agentId,jdbcType=INTEGER}
+		And p.studentId = t.studentId
+		And s.schoolId = t.schoolId
+	</select>
+</mapper>

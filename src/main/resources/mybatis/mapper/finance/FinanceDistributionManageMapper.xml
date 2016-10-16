@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.finance.FinanceDistributionManageDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.finance.FinanceDistributionManage">
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="levelId" property="levelId" jdbcType="INTEGER" />
+                <result column="amount" property="amount" jdbcType="INTEGER" />
+                <result column="income" property="income" jdbcType="INTEGER" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="withdrawAmt" property="withdrawAmt" jdbcType="INTEGER" />
+                <result column="saleType" property="saleType" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+                <result column="name" property="name" jdbcType="VARCHAR" />
+                <result column="cardNo" property="cardNo" jdbcType="VARCHAR" />
+                <result column="identityCardNo" property="identityCardNo" jdbcType="VARCHAR" />
+                <result column="phone" property="phone" jdbcType="VARCHAR" />
+                <result column="flag" property="flag" jdbcType="VARCHAR" />
+            </resultMap>
+               <resultMap id="untreatedAgent" type="com.ryt.web.entity.finance.FinanceUntreatedAgentResult">
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="name" property="name" jdbcType="VARCHAR" />
+                <result column="identityCardNo" property="identityCardNo" jdbcType="VARCHAR" />
+                <result column="cardNo" property="cardNo" jdbcType="VARCHAR" />
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="phone" property="phone" jdbcType="VARCHAR" />
+            </resultMap>
+            
+             <resultMap id="queryUserResultMap" type="com.ryt.web.entity.user.User">
+                <result column="nickName" property="nickName" jdbcType="VARCHAR" />
+                <result column="trueName" property="trueName" jdbcType="VARCHAR" />
+                <result column="userPwd" property="userPwd" jdbcType="VARCHAR" />
+                <result column="roleNames" property="roleNames" jdbcType="VARCHAR" />
+                <result column="provinceId" property="provinceId" jdbcType="INTEGER" />
+                <result column="areaId" property="areaId" jdbcType="INTEGER" />
+                <result column="cityId" property="cityId" jdbcType="INTEGER" />
+                <result column="addressDetail" property="addressDetail" jdbcType="VARCHAR" />
+                <result column="fixedPhone" property="fixedPhone" jdbcType="VARCHAR" />
+                <result column="mobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+                <result column="remark" property="remark" jdbcType="VARCHAR" />
+                <result column="weiXin" property="weiXin" jdbcType="VARCHAR" />
+                <result column="qq" property="qq" jdbcType="INTEGER" />
+                <result column="email" property="email" jdbcType="VARCHAR" />
+                <result column="lastLoginDate" property="lastLoginDate" jdbcType="TIMESTAMP" />
+                <result column="token" property="token" jdbcType="VARCHAR" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+            
+                <resultMap id="queryAgentResultMap" type="com.ryt.web.entity.sc.ScAgent">
+                <result column="agentId" property="agentId" jdbcType="INTEGER" />
+                <result column="agentCode" property="agentCode" jdbcType="VARCHAR" />
+                <result column="levelId" property="levelId" jdbcType="INTEGER" />
+                <result column="identityCardNo" property="identityCardNo" jdbcType="VARCHAR" />
+                <result column="commandUserId" property="commandUserId" jdbcType="INTEGER" />
+                <result column="fax" property="fax" jdbcType="VARCHAR" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="CHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+                <result column="cardNo" property="cardNo" jdbcType="VARCHAR" />
+            </resultMap>
+	
+	
+	<!--获取未处理推荐人信息 start -->
+	<select id="listDeDisposeScAgent" resultMap="untreatedAgent" parameterType="com.ryt.web.entity.finance.FinanceUntreatedAgentResult">
+    SELECT t.*
+	FROM distributionManage t
+	WHERE flag='1' and saleType='1';
+	</select>
+    <!--获取未处理推荐人信息 end -->
+	
+	<select id="findUserId" parameterType="com.ryt.web.entity.finance.FinanceUntreatedAgentResult" resultMap="queryUserResultMap">
+	select 
+	      *
+	from
+	     user
+	where trueName=#{name}
+	and   mobilePhone= #{phone}
+	;
+	</select>
+		
+    <insert id="agentSave" parameterType="com.ryt.web.entity.finance.FinanceUntreatedAgentResult">
+	insert into scAgent 
+	 <trim prefix="(" suffix=")" suffixOverrides=",">
+	 `agentId`,
+	`identityCardNo`,
+	`userName`,
+	`cardNo`,
+	`levelId`,
+	`commandUserId`,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">	
+    #{id},
+	#{identityCardNo},
+	#{name},
+    #{cardNo},
+	1,
+	#{agentId},
+	</trim>
+	</insert>
+	
+	<insert id="addIncomeOne" parameterType="com.ryt.web.entity.finance.FinanceUntreatedAgentResult">
+	insert into distributionManage 
+	 <trim prefix="(" suffix=")" suffixOverrides=",">
+	`income`,
+	`agentId`,
+	`saleType`,
+	`flag`,
+	`name`,
+	`amount`,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">	
+    400000,
+    #{agentId},
+	"1",
+	"0",
+    #{name},
+     2000000,
+	</trim>
+	</insert>
+	
+	<select id="higherLevelAgent" parameterType="com.ryt.web.entity.finance.FinanceUntreatedAgentResult" resultMap="queryAgentResultMap">
+	select * 
+	from scAgent
+	where agentId=
+	(select 
+	      commandUserId
+	from
+	     scAgent
+	where agentId=#{agentId})
+	;
+	</select>
+	
+	<insert id="addIncomeTwo" parameterType="com.ryt.web.entity.sc.ScAgent">
+	insert into distributionManage 
+	 <trim prefix="(" suffix=")" suffixOverrides=",">
+	`income`,
+	`agentId`,
+	`saleType`,
+	`flag`,
+	`amount`,
+	`name`,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">	
+    100000,
+    #{agentId},
+	"5",
+	"0",
+	2000000,
+	#{agentCode}
+	</trim>
+    </insert>
+    
+    <update id="updateFlag" parameterType="java.lang.Integer">
+    UPDATE distributionManage
+        <set>
+        flag = "0",
+        </set>
+            WHERE id = #{manageId,jdbcType=INTEGER}
+    </update>   
+    <!-- 添加未处理推荐人信息 end -->
+    
+    <!--升级代理商列表查询 start  -->
+		<select id="listAgentUpgradeMes"  resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceDistributionManage">
+    SELECT COUNT(*)
+    FROM
+    ((SELECT scAgent.*
+	FROM scAgent,(SELECT commandUserId,count(*) as num FROM scAgent GROUP BY commandUserId )scAgent_view
+    WHERE  
+         scAgent.agentId=scAgent_view.commandUserId
+    AND 
+         scAgent_view.num <![CDATA[>=]]>5
+    AND 
+         levelId =1)
+         UNION ALL
+            ( SELECT scAgent.*
+	FROM scAgent,(SELECT t.commandUserId,count(*) as num FROM (select * from scAgent where levelId <![CDATA[>=]]> 2)t GROUP BY t.commandUserId  )scAgent_view
+    WHERE  
+         scAgent.agentId=scAgent_view.commandUserId
+    AND 
+         scAgent_view.num <![CDATA[>=]]>5
+    AND 
+         levelId =2)
+         UNION ALL
+         (    SELECT scAgent.*
+	FROM scAgent,(SELECT t.commandUserId,count(*) as num FROM (select * from scAgent where levelId <![CDATA[>=]]> 3)t GROUP BY t.commandUserId  )scAgent_view
+    WHERE  
+         scAgent.agentId=scAgent_view.commandUserId
+    AND 
+         scAgent_view.num <![CDATA[>=]]>5
+    AND 
+         levelId =3
+         ))U
+         WHERE U.agentId = #{agentId,jdbcType=INTEGER};
+	</select> 
+   <!--升级代理商列表查询 end  -->
+   
+   <!--升级代理商提交 start  -->
+	<update id="DoSubmitAgentUpgrade" parameterType="com.ryt.web.entity.sc.ScAgent">
+    UPDATE scAgent
+        <set>
+        levelId=levelId+1,
+        </set>
+            WHERE agentId = #{agentId,jdbcType=INTEGER}
+    </update>
+   <!--升级代理商提交 end  -->
+   
+   
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT 
+		*
+		FROM
+		(SELECT M.*,L.trueName as name
+		FROM
+		(SELECT D.*,S.levelId as levelId
+		from
+		(SELECT t.agentId,ceil(t.amount/100) as amount,ceil (t.income/100) as income,t.editedTime,t.createdTime,t.saleType,t.id 
+		FROM distributionManage t
+		where t.income is not null
+	  )D,scAgent S
+		where D.agentId = S.agentId)M,user L
+		WHERE L.id = M.agentId)Q
+		<include refid="expressionBlock.where" />
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM distributionManage t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.finance.FinanceDistributionManage"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO distributionManage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="agentId != null">
+            `agentId`,
+         </if>       
+                <if test="levelId != null">
+            `levelId`,
+         </if>       
+                <if test="amount != null">
+            `amount`,
+         </if>       
+                <if test="income != null">
+            `income`,
+         </if>       
+                <if test="saleType != null">
+            `saleType`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               <if test="withdrawAmt != null">
+            `withdrawAmt`,
+         </if>  
+               <if test="flag != null">
+            `flag`,
+         </if>  
+               <if test="cardNo != null">
+            `cardNo`,
+         </if>  
+               <if test="phone != null">
+            `phone`,
+         </if>  
+               <if test="identityCardNo != null">
+            `identityCardNo`,
+         </if>  
+               <if test="name != null">
+            `name`,
+         </if>  
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="agentId != null">
+            #{agentId,jdbcType=INTEGER},
+            </if>
+                     <if test="levelId != null">
+            #{levelId,jdbcType=INTEGER},
+            </if>
+                     <if test="amount != null">
+            #{amount,jdbcType=INTEGER},
+            </if>
+                     <if test="income != null">
+            #{income,jdbcType=INTEGER},
+            </if>
+                     <if test="saleType != null">
+            #{saleType,jdbcType=INTEGER},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+                       <if test="withdrawAmt != null">
+            #{withdrawAmt,jdbcType=INTEGER},
+            </if>
+                       <if test="flag != null">
+            #{flag,jdbcType=VARCHAR},
+            </if>
+                         <if test="cardNo != null">
+            #{cardNo,jdbcType=VARCHAR},
+            </if>
+                            <if test="phone != null">
+            #{phone,jdbcType=VARCHAR},
+            </if>
+                              <if test="identityCardNo != null">
+            #{identityCardNo,jdbcType=VARCHAR},
+            </if>
+                                <if test="name != null">
+            #{name,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.finance.FinanceDistributionManage">
+    UPDATE distributionManage
+        <set>
+                    <if test="agentId != null">
+            agentId = #{agentId,jdbcType=INTEGER},
+             </if> 
+                    <if test="levelId != null">
+            levelId = #{levelId,jdbcType=INTEGER},
+             </if> 
+                    <if test="amount != null">
+            amount = #{amount,jdbcType=INTEGER},
+             </if> 
+                    <if test="income != null">
+            income = #{income,jdbcType=INTEGER},
+             </if> 
+                    <if test="saleType != null">
+            saleType = #{saleType,jdbcType=VARCHAR},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                               
+                              <if test="withdrawAmt != null">
+            withdrawAmt= #{withdrawAmt,jdbcType=INTEGER},
+            </if>
+                       <if test="flag != null">
+            flag=  #{flag,jdbcType=VARCHAR},
+            </if>
+                         <if test="cardNo != null">
+            cardNo=   #{cardNo,jdbcType=VARCHAR},
+            </if>
+                            <if test="phone != null">
+            phone=  #{phone,jdbcType=VARCHAR},
+            </if>
+                              <if test="identityCardNo != null">
+            identityCardNo=  #{identityCardNo,jdbcType=VARCHAR},
+            </if>
+                                <if test="name != null">
+            name=  #{name,jdbcType=VARCHAR},
+            </if>
+               
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.finance.FinanceDistributionManage">
+		SELECT t.*
+		FROM distributionManage t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.finance.FinanceDistributionManage">
+		DELETE FROM distributionManage
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	
+	
+	<!--获取收支信息查询 start-->
+	<select id="agentDisManage" resultType="java.lang.Integer">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=1 and flag='0';
+	</select>
+	<select id="serviceDisManage" resultType="java.lang.Integer">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=12 and flag='0';
+	</select>
+	<select id="serviceInManage" resultType="java.lang.Integer">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=3 and flag='0';
+	</select>
+	<select id="marketDisManage" resultType="java.lang.Integer">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=13 and flag='0';
+	</select>
+	<select id="beWithdrawManage" resultType="java.lang.Integer">
+	select  ifnull(sum(withdrawAmt),0) from distributionManage where flag='0';
+	</select>
+    <!-- 获取收支信息查询 end--> 
+    
+    <!-- 过滤收支信息查询 start--> 
+    <select id="agentDisManageFilter" resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=1 and flag='0' and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+	<select id="serviceDisManageFilter" resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=12 and flag='0' and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+	<select id="serviceInManageFilter" resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+	select  ifnull(sum(amount),0) from distributionManage where saleType=3 and flag='0' and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d'); 
+	</select>
+	<select id="marketDisManageFilter" resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+	select  ifnull(sum(amount),0) from  distributionManage where saleType=13 and flag='0' and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+	<select id="beWithdrawManageFilter" resultType="java.lang.Integer" parameterType="com.ryt.web.entity.finance.FinanceFilterParameter">
+	select  ifnull(sum(withdrawAmt),0)  from distributionManage where flag='0' and <![CDATA[#{createdStartSch_String,jdbcType=VARCHAR}<=]]> date_format(createdTime,'%Y%m%d') and <![CDATA[#{createdEndSch_String,jdbcType=VARCHAR}>=]]> date_format(createdTime,'%Y%m%d');
+	</select>
+	<!-- 过滤收支信息查询 end--> 
+	
+    <!--提现信息查询  start -->
+	<select id="listIncomeAmountMes" resultMap="queryResultMap">
+	   SELECT B.*,U.trueName as name,U.userName as phone
+	    from
+	    (SELECT *
+	    FROM 
+	    (SELECT D.id as id,D.agentId as agentId,D.withdrawAmt as withdrawAmt,A.identityCardNo as identityCardNo,A.cardNo as cardNo FROM 
+	    distributionManage D,scAgent A
+	    where D.flag='1' 
+	    and   D.withdrawAmt is not null
+	    and   D.agentId = A.agentId)C)B,user U
+	    WHERE B.agentId = U.id
+	</select>
+	<!--提现信息查询   end -->
+	
+    <!--提现信息提交   start -->
+	<update id="submitIncomeAmount" parameterType="com.ryt.web.entity.finance.FinanceDistributionManage">
+        UPDATE distributionManage
+        <set>
+        flag = "0",
+        </set>
+            WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+	<!--提现信息提交   end -->
+	
+		
+    <!--过滤提现信息查询  start--> 
+	<select id="FilterListIncomeAmount" resultMap="queryResultMap" parameterType="java.lang.Integer">
+    SELECT * FROM 
+    distributionManage 
+    where flag='1' 
+    and   withdrawAmt is not null
+     <if test="agentId != null">
+     and   agentId=#{agentId}
+     </if>
+     ;
+	</select>
+	<!--过滤提现信息查询   end -->
+	
+	<!--  推荐人申请，代理商升级，提现信息提示 start -->
+	<select id="numberCount" resultType="java.lang.Integer">
+	SELECT count(*) FROM distributionManage where flag='1' and saleType='1';
+	</select>
+	
+	<select id="numberCountRemainingAmt" resultType="java.lang.Integer">
+	SELECT count(*) FROM distributionManage where flag='1' and withdrawAmt is not null;	
+	</select>
+ 
+	
+	<select id="numberCountUpgradeSmallArea"  resultType="java.lang.Integer" >
+    SELECT count(*)
+	FROM scAgent,(SELECT commandUserId,count(*) as num FROM scAgent GROUP BY commandUserId  )scAgent_view
+    WHERE  
+         scAgent.agentId=scAgent_view.commandUserId
+    AND 
+         scAgent_view.num <![CDATA[>=]]>5
+    AND 
+         levelId =1;
+	</select> 
+	
+	<select id="numberCountUpgradeBigArea"  resultType="java.lang.Integer" >
+    SELECT count(*)
+	FROM scAgent,(SELECT t.commandUserId,count(*) as num FROM (select * from scAgent where levelId <![CDATA[>=]]> 2)t GROUP BY t.commandUserId  )scAgent_view
+    WHERE  
+         scAgent.agentId=scAgent_view.commandUserId
+    AND 
+         scAgent_view.num <![CDATA[>=]]>5
+    AND 
+         levelId =2;
+	</select> 
+	
+    <select id="numberCountUpgradeGoldArea"  resultType="java.lang.Integer" >
+    SELECT count(*)
+	FROM scAgent,(SELECT t.commandUserId,count(*) as num FROM (select * from  scAgent where levelId <![CDATA[>=]]> 3)t GROUP BY t.commandUserId  )scAgent_view
+    WHERE  
+         scAgent.agentId=scAgent_view.commandUserId
+    AND 
+         scAgent_view.num <![CDATA[>=]]>5
+    AND 
+         levelId =3;
+	</select>
+	<!--  推荐人申请，代理商升级，提现信息提示 end -->
+	
+	<!-- 通过agentId找出这个代理商在user表中对应的数据  start -->
+	<select id="getMessage"    parameterType="com.ryt.web.entity.finance.FinanceDistributionManage" resultMap="queryUserResultMap">
+	select 
+	      *
+	from
+	     user
+	where id=#{agentId}
+	;
+	</select>
+	
+	<!-- 通过agentId找出这个代理商在user表中对应的数据  end -->
+	
+	<!--  微信提交被推荐人信息 start -->
+	<insert id="chatAgentSubmit" parameterType="com.ryt.web.entity.finance.FinanceUntreatedAgentResult">
+	insert into distributionManage 
+	 <trim prefix="(" suffix=")" suffixOverrides=",">
+	`agentId`,
+	`identityCardNo`,
+	`name`,
+	`cardNo`,
+	`phone`,
+	`levelId`,
+	`saleType`,
+	`flag`,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">	
+    #{id},
+	#{identityCardNo},
+	#{name},
+    #{cardNo},
+	#{phone},
+	#{levelId},
+	1,
+	"1",
+	</trim>
+	</insert>
+	<!--  微信提交被推荐人信息  end -->
+	
+	
+	<!--微信获取代理商收益列表 start  -->
+	<select id="chatAgentIncomeInf" parameterType="java.lang.String" resultMap="queryResultMap">
+	SELECT *
+	FROM distributionManage
+	WHERE   agentId =
+	     (SELECT id FROM user WHERE userName=#{userName})
+	AND
+	      flag =0
+	AND
+	      income is not null
+	</select>
+	<!--微信获取代理商收益列表 end  -->
+	
+	<!--微信获取代理商已提现列表 start  -->
+		<select id="chatWithdrawInf" parameterType="java.lang.String" resultMap="queryResultMap">
+	SELECT *
+	FROM distributionManage
+	WHERE   agentId =
+	     (SELECT id FROM user WHERE userName=#{userName})
+	AND
+	      withdrawAmt is not null
+	AND 
+	       saleType IN (1,5,3,6,7,8,9,10,11)
+	</select>
+	<!--微信获取代理商已提现列表 end  -->
+	
+	 <!-- 微信提现申请 start -->
+	 <insert id="submitWithdraw" parameterType="java.lang.Integer">
+	 	insert into distributionManage 
+	 <trim prefix="(" suffix=")" suffixOverrides=",">
+	 `agentId`,
+	 `withdrawAmt`,
+	 `flag`
+	 </trim>
+     <trim prefix="values (" suffix=")" suffixOverrides=",">	
+	 #{agentId},
+	 #{amt},
+	 '1',
+	 </trim>
+	 </insert>
+	 <!-- 微信提现申请 end -->
+	 
+	 <!--20150103 微信index.html中的查询     start-->
+	    <select id="queryTrueName" parameterType="java.lang.String" resultType="java.lang.String">
+	    SELECT trueName
+		FROM    user 
+		WHERE userName = #{userName,jdbcType=VARCHAR}
+		</select>
+	    <select id="suggestRegisterCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	    select count(*)
+	    from   scAgent
+	    where commandUserId = 
+	    (SELECT  id
+		FROM    user 
+		WHERE userName = #{userName,jdbcType=VARCHAR})
+		</select>
+		
+        <select id="suggesterSchoolNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+	    select count(*)
+	    from   scSchool
+	    where agentId = 
+	    (SELECT  id
+		FROM    user 
+		WHERE userName = #{userName,jdbcType=VARCHAR})
+		</select>
+	 <!--20150103 微信index.html中的查询     end-->
+</mapper>

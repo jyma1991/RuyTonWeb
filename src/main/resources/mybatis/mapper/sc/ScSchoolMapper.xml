@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScSchoolDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScSchool">
+		<result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+		<result column="agentId" property="agentId" jdbcType="INTEGER" />
+		<result column="schoolTypeId" property="schoolTypeId" jdbcType="VARCHAR" />
+		<result column="schoolCode" property="schoolCode" jdbcType="VARCHAR" />
+		<result column="schoolName" property="schoolName" jdbcType="VARCHAR" />
+		<result column="businessLicence" property="businessLicence" jdbcType="VARCHAR" />
+		<result column="articleId" property="articleId" jdbcType="VARCHAR" />
+		<result column="levelId" property="levelId" jdbcType="INTEGER" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="CHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+		<!-- 新增字段,签到机的一些配置信息 -->
+		<result column="erweima_pic" property="erweima_pic" jdbcType="VARCHAR" />
+		<result column="sign_pic" property="sign_pic" jdbcType="VARCHAR" />
+		<result column="advertisement_one" property="advertisement_one" jdbcType="VARCHAR" />
+		<result column="advertisement_two" property="advertisement_two" jdbcType="VARCHAR" />
+		<result column="advertisement_three" property="advertisement_three" jdbcType="VARCHAR" />
+		<result column="freeVideoDay" property="freeVideoDay" jdbcType="INTEGER" />
+
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scSchool t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scSchool t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.sc.ScSchool"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO scSchool
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="schoolId != null">
+				`schoolId`,
+			</if>
+			<if test="agentId != null">
+				`agentId`,
+			</if>
+			<if test="schoolTypeId != null">
+				`schoolTypeId`,
+			</if>
+			<if test="schoolCode != null">
+				`schoolCode`,
+			</if>
+			<if test="schoolName != null">
+				`schoolName`,
+			</if>
+			<if test="businessLicence != null">
+				`businessLicence`,
+			</if>
+			<if test="articleId != null">
+				`articleId`,
+			</if>
+			<if test="levelId != null">
+				`levelId`,
+			</if>
+			<if test="fax != null">
+				`fax`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="operaterId != null">
+				`operaterId`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+			<if test="erweima_pic != null">
+				`erweima_pic`,
+			</if>
+			<if test="sign_pic != null">
+				`sign_pic`,
+			</if>
+			<if test="advertisement_one != null">
+				`advertisement_one`,
+			</if>
+			<if test="advertisement_two != null">
+				`advertisement_two`,
+			</if>
+			<if test="advertisement_three != null">
+				`advertisement_three`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="schoolId != null">
+				#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="agentId != null">
+				#{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolTypeId != null">
+				#{schoolTypeId,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolCode != null">
+				#{schoolCode,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolName != null">
+				#{schoolName,jdbcType=VARCHAR},
+			</if>
+			<if test="businessLicence != null">
+				#{businessLicence,jdbcType=VARCHAR},
+			</if>
+			<if test="articleId != null">
+				#{articleId,jdbcType=VARCHAR},
+			</if>
+			<if test="levelId != null">
+				#{levelId,jdbcType=INTEGER},
+			</if>
+			<if test="fax != null">
+				#{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				#{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="erweima_pic != null">
+				#{erweima_pic,jdbcType=VARCHAR},
+			</if>
+			<if test="sign_pic != null">
+				#{sign_pic,jdbcType=VARCHAR},
+			</if>
+			<if test="advertisement_one != null">
+				#{advertisement_one,jdbcType=VARCHAR},
+			</if>
+			<if test="advertisement_two != null">
+				#{advertisement_two,jdbcType=VARCHAR},
+			</if>
+			<if test="advertisement_three != null">
+				#{advertisement_three,jdbcType=VARCHAR},
+			</if>
+			
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.sc.ScSchool">
+		UPDATE scSchool
+		<set>
+			<if test="schoolId != null">
+				schoolId = #{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="agentId != null">
+				agentId = #{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolTypeId != null">
+				schoolTypeId = #{schoolTypeId,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolCode != null">
+				schoolCode = #{schoolCode,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolName != null">
+				schoolName = #{schoolName,jdbcType=VARCHAR},
+			</if>
+			<if test="businessLicence != null">
+				businessLicence = #{businessLicence,jdbcType=VARCHAR},
+			</if>
+			<if test="articleId != null">
+				articleId = #{articleId,jdbcType=VARCHAR},
+			</if>
+			<if test="levelId != null">
+				levelId = #{levelId,jdbcType=INTEGER},
+			</if>
+			<if test="fax != null">
+				fax = #{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=CHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				operaterId = #{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="erweima_pic != null">
+				erweima_pic = #{erweima_pic,jdbcType=VARCHAR},
+			</if>
+			<if test="sign_pic != null">
+				sign_pic = #{sign_pic,jdbcType=VARCHAR},
+			</if>
+			<if test="advertisement_one != null">
+				advertisement_one = #{advertisement_one,jdbcType=VARCHAR},
+			</if>
+			<if test="advertisement_two != null">
+				advertisement_two = #{advertisement_two,jdbcType=VARCHAR},
+			</if>
+			<if test="advertisement_three != null">
+				advertisement_three = #{advertisement_three,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sc.ScSchool">
+		SELECT t.*
+		FROM scSchool t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScSchool">
+		update scSchool set isDeleted = 1 
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	<select id="getSchoolByUserId" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.sc.ScSchool">
+		SELECT t.*
+		FROM scSchool t
+		WHERE t.schoolId = #{userId,jdbcType=INTEGER}
+		and  isDeleted = 0
+	</select>
+	
+	  <select id="chatFindSchoolList" parameterType="java.lang.String" resultMap="queryResultMap">
+     SELECT Q.*,U.addressDetail as fax,U.mobilePhone as businessLicence,
+     (SELECT COUNT(*) FROM scStudent WHERE schoolId=Q.schoolId and  isDeleted=0
+     ) as userId
+   FROM
+   (SELECT S.schoolId as schoolId,S.schoolName as schoolName
+   FROM scSchool S
+   WHERE agentId =
+   (SELECT id
+   FROM   user
+   WHERE  userName=#{userName}))Q,user U
+   WHERE  Q.schoolId=U.id
+   </select>
+   <!--微信获取代理商所代理学校 end  -->
+
+</mapper>

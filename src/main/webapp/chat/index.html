@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=GBK">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+<meta http-equiv="expires" content="0">
+<title>主菜单</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+<style>
+.img {
+    max-width: 100%;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	$.ajax({
+		type : 'POST',
+		url : ctx + 'chatIndexQuery.do?userName=' + userName,
+		success : function(result) {
+		  $("#trueName").html(result.trueName);
+		  $("#trueName_input").val(result.trueName);
+		  $("#suggestRegisterCount").html(result.suggestRegisterCount);
+		  $("#suggesterSchoolNum").html(result.suggesterSchoolNum);
+		  if(result.levelId==1){
+			  $("#levelId").html("粉丝合伙人");
+		  }
+		  if(result.levelId==2){
+			  $("#levelId").html("小区合伙人");
+		  }
+		  if(result.levelId==3){
+			  $("#levelId").html("大区合伙人");
+		  }
+		  if(result.levelId==4){
+			  $("#levelId").html("金牌合伙人");
+		  }
+		},
+		dataType : 'json'
+	}); //由ruytonweb进行登录
+})
+function goPage(page){
+	   var trueName_input =$("#trueName_input").val();
+	   var url = parent.document.location;
+	   var str = JSON.stringify(url);
+	   var start = str.indexOf("userName");
+	   var end = str.indexOf("&&");
+	   var userName = str.substring(start+9,end);
+	   var params = {"userName":userName};
+	   window.sessionStorage.setItem("trueName",trueName_input);
+	   if(page=='myLowerAgent.html'){
+			$.ajax({
+				  type: 'POST',
+				  url: ctx+'chatScAgentLowerInf.do',
+				  data: params,
+				  success:function (result){
+					  if(result.length==0){
+						  location.href="noQueryList.html";
+						  return;
+					  }else{
+						  location.href = "myLowerAgent.html?userName=" + userName + "&&";
+					  }
+				  },
+				  dataType:'json'});
+	   }else{
+	   location.href=page+'?userName='+userName+'&&';
+	   }
+}
+</script>
+<style>
+.img {
+    max-width: 100%;
+}
+.myclass {
+    width: 100%;
+}
+.border {
+    border: 0px solid #DCDCDC;
+    border-radius: 5px;
+}
+</style>
+</head>
+<body>
+<input type="hidden" id="trueName_input">
+<div class="errorMessage"></div>
+<img class="img" src="images/indexInHand.jpg"/>	
+<div class="resultDiv common border">
+<table class="commonTable">
+<tr class="tr2">
+<td width="45%" style="color:#666">代理商姓名：</td>
+<td id="trueName" style="color:#666"></td>
+</tr>
+<tr class="tr2" >
+<td width="45%" style="color:#666">等级：</td>
+<td id="levelId" style="color:#666"></td>
+</tr>
+<tr class="tr2">
+<td width="45%" style="color:#666">已推荐人数：</td>
+<td id="suggestRegisterCount" style="color:#666"></td>
+</tr>
+<tr class="tr2">
+<td width="45%" style="color:#666">已开发幼儿园数 ：</td>
+<td id="suggesterSchoolNum" style="color:#666"></td>
+</tr>
+</table>
+</div>
+<div class="resultDiv common border">
+	<table class="myclass">
+		<tr class="tr" onclick="goPage('myFeeList.html')">
+			<td style="color:#666;width:70%;padding-left:4%;font-size:16px;">我的佣金</td>
+			<td align="right" style="padding-right:4%;"><img src="images/enter.jpg" width="36" height="36"/></td>
+		</tr>
+	</table>
+	<div class="tdicon"></div>
+</div>
+<div class="resultDiv common border">
+	<table class="myclass" >
+		<tr class="tr" onclick="goPage('suggestAgent.html')">
+			<td style="color:#666;width:70%;padding-left:4%;font-size:16px;">推荐粉丝合伙人</td>
+			<td align="right" style="padding-right:4%;"><img src="images/enter.jpg" width="36" height="36"/></td>
+		</tr>
+	</table>
+	<div class="tdicon"></div>
+</div>
+<div class="resultDiv common border">
+	<table class="myclass" >
+		<tr class="tr" onclick="goPage('myLowerAgent.html')">
+			<td style="color:#666;width:70%;padding-left:4%;font-size:16px;">我的下级代理商</td>
+			<td align="right" style="padding-right:4%;"><img src="images/enter.jpg" width="36" height="36"/></td>
+		</tr>
+	</table>
+	<div class="tdicon"></div>
+</div>
+  <div class="resultDiv common border">
+	<table  class="myclass" >
+		<tr class="tr" onclick="goPage('mySchoolList.html')">
+			<td style="color:#666;width:70%;padding-left:4%;font-size:16px;">我的幼儿园</td>
+			<td align="right" style="padding-right:4%;"><img src="images/enter.jpg" width="36" height="36"/></td>
+		</tr>
+	</table>
+	<div class="tdicon"></div>
+	</div>
+<div class="resultDiv common border">
+	<table  class="myclass">
+		<tr class="tr" onclick="goPage('myInformationList.html')">
+			<td style="color:#666;width:70%;padding-left:4%;font-size:16px;">我的个人信息</td>
+			<td align="right" style="padding-right:4%;"><img src="images/enter.jpg" width="36" height="36"/></td>
+		</tr>
+	</table>
+	<div class="tdicon"></div>
+</div>
+<br/><br>
+</body>
+</html>

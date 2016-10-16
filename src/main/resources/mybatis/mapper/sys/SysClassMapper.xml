@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sys.SysClassDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.sys.SysClass">
+                <result column="parentId" property="parentId" jdbcType="INTEGER" />
+                <result column="className" property="className" jdbcType="VARCHAR" />
+                <result column="description" property="description" jdbcType="VARCHAR" />
+                <result column="url" property="url" jdbcType="VARCHAR" />
+                <result column="urlTarget" property="urlTarget" jdbcType="VARCHAR" />
+                <result column="sysClassTypeId" property="sysClassTypeId" jdbcType="INTEGER" />
+                <result column="formObjectList" property="formObjectList" jdbcType="VARCHAR" />
+                <result column="classProperty" property="classProperty" jdbcType="INTEGER" />
+                <result column="picId" property="picId" jdbcType="INTEGER" />
+                <result column="icon" property="icon" jdbcType="VARCHAR" />
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+                <result column="userId" property="userId" jdbcType="INTEGER" />
+                <result column="userName" property="userName" jdbcType="VARCHAR" />
+                <result column="sortId" property="sortId" jdbcType="INTEGER" />
+                <result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+                <result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM sysClass t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM sysClass t
+		<include refid="expressionBlock.where" />
+    </select>
+    <insert id="save" parameterType="com.ryt.web.entity.sys.SysClass"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO sysClass
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+              
+                <if test="parentId != null">
+            `parentId`,
+         </if>       
+                <if test="className != null">
+            `className`,
+         </if>       
+                <if test="description != null">
+            `description`,
+         </if>       
+                <if test="url != null">
+            `url`,
+         </if>       
+                <if test="urlTarget != null">
+            `urlTarget`,
+         </if>       
+                <if test="sysClassTypeId != null">
+            `sysClassTypeId`,
+         </if>       
+                <if test="formObjectList != null">
+            `formObjectList`,
+         </if>       
+                <if test="classProperty != null">
+            `classProperty`,
+         </if>   
+         		<if test="picId != null">
+            `picId`,
+         </if>   
+         		<if test="icon != null">
+            `icon`,
+         </if>       
+                <if test="id != null">
+            `id`,
+         </if>       
+                <if test="uuid != null">
+            `uuid`,
+         </if>       
+                <if test="userId != null">
+            `userId`,
+         </if>       
+                <if test="userName != null">
+            `userName`,
+         </if>       
+                <if test="sortId != null">
+            `sortId`,
+         </if>       
+                <if test="isDeleted != null">
+            `isDeleted`,
+         </if>       
+                <if test="operaterId != null">
+            `operaterId`,
+         </if>       
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="parentId != null">
+            #{parentId,jdbcType=INTEGER},
+            </if>
+                     <if test="className != null">
+            #{className,jdbcType=VARCHAR},
+            </if>
+                     <if test="description != null">
+            #{description,jdbcType=VARCHAR},
+            </if>
+                     <if test="url != null">
+            #{url,jdbcType=VARCHAR},
+            </if>
+                     <if test="urlTarget != null">
+            #{urlTarget,jdbcType=VARCHAR},
+            </if>
+                     <if test="sysClassTypeId != null">
+            #{sysClassTypeId,jdbcType=INTEGER},
+            </if>
+                     <if test="formObjectList != null">
+            #{formObjectList,jdbcType=VARCHAR},
+            </if>
+                     <if test="classProperty != null">
+            #{classProperty,jdbcType=INTEGER},
+            </if>
+            		<if test="picId != null">
+            #{picId,jdbcType=INTEGER},
+            </if>
+            		<if test="icon != null">
+            #{icon,jdbcType=VARCHAR},
+            </if>
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+                     <if test="uuid != null">
+            #{uuid,jdbcType=VARCHAR},
+            </if>
+                     <if test="userId != null">
+            #{userId,jdbcType=INTEGER},
+            </if>
+                     <if test="userName != null">
+            #{userName,jdbcType=VARCHAR},
+            </if>
+                     <if test="sortId != null">
+            #{sortId,jdbcType=INTEGER},
+            </if>
+                     <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+            </if>
+                     <if test="operaterId != null">
+            #{operaterId,jdbcType=INTEGER},
+            </if>
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.sys.SysClass">
+    UPDATE sysClass
+        <set>
+                    <if test="parentId != null">
+            parentId = #{parentId,jdbcType=INTEGER},
+             </if> 
+                    <if test="className != null">
+            className = #{className,jdbcType=VARCHAR},
+             </if> 
+                    <if test="description != null">
+            description = #{description,jdbcType=VARCHAR},
+             </if> 
+                    <if test="url != null">
+            url = #{url,jdbcType=VARCHAR},
+             </if> 
+                    <if test="urlTarget != null">
+            urlTarget = #{urlTarget,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sysClassTypeId != null">
+            sysClassTypeId = #{sysClassTypeId,jdbcType=INTEGER},
+             </if> 
+                    <if test="formObjectList != null">
+            formObjectList = #{formObjectList,jdbcType=VARCHAR},
+             </if> 
+                    <if test="classProperty != null">
+            classProperty = #{classProperty,jdbcType=INTEGER},
+             </if> 
+             		<if test="picId != null">
+            picId = #{picId,jdbcType=INTEGER},
+             </if> 
+             		<if test="icon != null">
+            icon = #{icon,jdbcType=VARCHAR},
+             </if> 
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if> 
+                    <if test="uuid != null">
+            uuid = #{uuid,jdbcType=VARCHAR},
+             </if> 
+                    <if test="userId != null">
+            userId = #{userId,jdbcType=INTEGER},
+             </if> 
+                    <if test="userName != null">
+            userName = #{userName,jdbcType=VARCHAR},
+             </if> 
+                    <if test="sortId != null">
+            sortId = #{sortId,jdbcType=INTEGER},
+             </if> 
+                    <if test="isDeleted != null">
+            isDeleted = #{isDeleted,jdbcType=TINYINT},
+             </if> 
+                    <if test="operaterId != null">
+            operaterId = #{operaterId,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sys.SysClass">
+		SELECT t.*
+		FROM sysClass t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.sys.SysClass">
+		update  sysClass set isDeleted = 1
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+	
+	 <select id="getSysClassByTypeId" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		SELECT t.*,(select count(*)
+		from sysClass
+		where isDeleted = 0 and parentid =#{parentId,jdbcType=INTEGER} and sysClassTypeId=#{sysClassTypeId,jdbcType=INTEGER}) as cid 
+		FROM sysClass t
+		WHERE t.isDeleted = 0 and t.sysClassTypeId = #{sysClassTypeId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getChildSysClassesListByParentId" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		SELECT t.*,(select count(a.id) from sysClass a where a.parentId=t.id and a.isDeleted = 0) as cid 
+		FROM sysClass t
+		WHERE t.isDeleted = 0 and t.parentId = #{parentId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getAllRelativeName" resultMap="queryResultMap" parameterType="java.lang.Integer">
+		SELECT t.*
+		FROM sysClass t
+		WHERE t.isDeleted = 0 and t.sysClassTypeId = #{sysClassTypeId,jdbcType=INTEGER}
+	</select>
+	
+	
+
+</mapper>

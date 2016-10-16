@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sys.SysUploadDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.sys.SysUpload">
+		<result column="clientName" property="clientName" jdbcType="VARCHAR" />
+		<result column="serverName" property="serverName" jdbcType="VARCHAR" />
+		<result column="fileExt" property="fileExt" jdbcType="VARCHAR" />
+		<result column="fileSize" property="fileSize" jdbcType="INTEGER" />
+		<result column="fileWidth" property="fileWidth" jdbcType="INTEGER" />
+		<result column="fileHeight" property="fileHeight" jdbcType="INTEGER" />
+		<result column="moduleId" property="moduleId" jdbcType="VARCHAR" />
+		<result column="funcId" property="funcId" jdbcType="VARCHAR" />
+		<result column="dataId" property="dataId" jdbcType="VARCHAR" />
+		<result column="fileFullPath" property="fileFullPath" jdbcType="VARCHAR" />
+		<result column="zipId" property="zipId" jdbcType="INTEGER" />
+		<result column="proCode" property="proCode" jdbcType="VARCHAR" />
+		<result column="proFileType" property="proFileType" jdbcType="VARCHAR" />
+		<result column="createdBy" property="createdBy" jdbcType="VARCHAR" />
+		<result column="fileTypes" property="fileTypes" jdbcType="VARCHAR" />
+		<result column="customerId" property="customerId" jdbcType="INTEGER" />
+		<result column="duration" property="duration" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="operaterIid" property="operaterIid" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM sysUpload t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM sysUpload t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.sys.SysUpload"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO sysUpload
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="clientName != null">
+				`clientName`,
+			</if>
+			<if test="serverName != null">
+				`serverName`,
+			</if>
+			<if test="fileExt != null">
+				`fileExt`,
+			</if>
+			<if test="fileSize != null">
+				`fileSize`,
+			</if>
+			<if test="fileWidth != null">
+				`fileWidth`,
+			</if>
+			<if test="fileHeight != null">
+				`fileHeight`,
+			</if>
+			<if test="moduleId != null">
+				`moduleId`,
+			</if>
+			<if test="funcId != null">
+				`funcId`,
+			</if>
+			<if test="dataId != null">
+				`dataId`,
+			</if>
+			<if test="fileFullPath != null">
+				`fileFullPath`,
+			</if>
+			<if test="zipId != null">
+				`zipId`,
+			</if>
+			<if test="proCode != null">
+				`proCode`,
+			</if>
+			<if test="proFileType != null">
+				`proFileType`,
+			</if>
+			<if test="createdBy != null">
+				`createdBy`,
+			</if>
+			<if test="fileTypes != null">
+				`fileTypes`,
+			</if>
+			<if test="customerId != null">
+				`customerId`,
+			</if>
+			<if test="duration != null">
+				`duration`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="operaterIid != null">
+				`operaterIid`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="clientName != null">
+				#{clientName,jdbcType=VARCHAR},
+			</if>
+			<if test="serverName != null">
+				#{serverName,jdbcType=VARCHAR},
+			</if>
+			<if test="fileExt != null">
+				#{fileExt,jdbcType=VARCHAR},
+			</if>
+			<if test="fileSize != null">
+				#{fileSize,jdbcType=INTEGER},
+			</if>
+			<if test="fileWidth != null">
+				#{fileWidth,jdbcType=INTEGER},
+			</if>
+			<if test="fileHeight != null">
+				#{fileHeight,jdbcType=INTEGER},
+			</if>
+			<if test="moduleId != null">
+				#{moduleId,jdbcType=VARCHAR},
+			</if>
+			<if test="funcId != null">
+				#{funcId,jdbcType=VARCHAR},
+			</if>
+			<if test="dataId != null">
+				#{dataId,jdbcType=VARCHAR},
+			</if>
+			<if test="fileFullPath != null">
+				#{fileFullPath,jdbcType=VARCHAR},
+			</if>
+			<if test="zipId != null">
+				#{zipId,jdbcType=INTEGER},
+			</if>
+			<if test="proCode != null">
+				#{proCode,jdbcType=VARCHAR},
+			</if>
+			<if test="proFileType != null">
+				#{proFileType,jdbcType=VARCHAR},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="fileTypes != null">
+				#{fileTypes,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				#{customerId,jdbcType=INTEGER},
+			</if>
+			<if test="duration != null">
+				#{duration,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="operaterIid != null">
+				#{operaterIid,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.sys.SysUpload">
+		UPDATE sysUpload
+		<set>
+			<if test="clientName != null">
+				clientName = #{clientName,jdbcType=VARCHAR},
+			</if>
+			<if test="serverName != null">
+				serverName = #{serverName,jdbcType=VARCHAR},
+			</if>
+			<if test="fileExt != null">
+				fileExt = #{fileExt,jdbcType=VARCHAR},
+			</if>
+			<if test="fileSize != null">
+				fileSize = #{fileSize,jdbcType=INTEGER},
+			</if>
+			<if test="fileWidth != null">
+				fileWidth = #{fileWidth,jdbcType=INTEGER},
+			</if>
+			<if test="fileHeight != null">
+				fileHeight = #{fileHeight,jdbcType=INTEGER},
+			</if>
+			<if test="moduleId != null">
+				moduleId = #{moduleId,jdbcType=VARCHAR},
+			</if>
+			<if test="funcId != null">
+				funcId = #{funcId,jdbcType=VARCHAR},
+			</if>
+			<if test="dataId != null">
+				dataId = #{dataId,jdbcType=VARCHAR},
+			</if>
+			<if test="fileFullPath != null">
+				fileFullPath = #{fileFullPath,jdbcType=VARCHAR},
+			</if>
+			<if test="zipId != null">
+				zipId = #{zipId,jdbcType=INTEGER},
+			</if>
+			<if test="proCode != null">
+				proCode = #{proCode,jdbcType=VARCHAR},
+			</if>
+			<if test="proFileType != null">
+				proFileType = #{proFileType,jdbcType=VARCHAR},
+			</if>
+			<if test="createdBy != null">
+				createdBy = #{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="fileTypes != null">
+				fileTypes = #{fileTypes,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				customerId = #{customerId,jdbcType=INTEGER},
+			</if>
+			<if test="duration != null">
+				duration = #{duration,jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="operaterIid != null">
+				operaterIid = #{operaterIid,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sys.SysUpload">
+		SELECT t.*
+		FROM sysUpload t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.sys.SysUpload">
+		update sysUpload set isDeleted = 1 
+		WHERE id =
+		<if test="id != null">
+			#{id,jdbcType=INTEGER}
+		</if>
+	</delete>
+
+	<select id="getByUserId" resultMap="queryResultMap"
+		parameterType="java.lang.Integer">
+		SELECT t.*
+		FROM sysUpload t
+		WHERE t.id =
+		#{uploadId,jdbcType=INTEGER}
+	</select>
+
+
+</mapper>

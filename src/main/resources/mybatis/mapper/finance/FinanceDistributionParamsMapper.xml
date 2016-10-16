@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.finance.FinanceDistributionParamsDao">
+    <resultMap id="queryResultMap" type="com.ryt.web.entity.finance.FinanceDistributionParams">
+                <result column="id" property="id" jdbcType="INTEGER" />
+                <result column="levelId" property="levelId" jdbcType="INTEGER" />
+                <result column="saleType" property="saleType" jdbcType="INTEGER" />
+                <result column="rate" property="rate" jdbcType="INTEGER" />
+                <result column="schoolNum" property="schoolNum" jdbcType="INTEGER" />
+                <result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+                <result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+            </resultMap>
+
+    <select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM distributionParams t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+            #{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+    <select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM distributionParams t
+		<include refid="expressionBlock.where" />
+    </select>
+
+    <insert id="save" parameterType="com.ryt.web.entity.finance.FinanceDistributionParams"
+    keyProperty="id" keyColumn="id" useGeneratedKeys="true"
+    >
+	INSERT INTO distributionParams
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        
+                <if test="levelId != null">
+            `levelId`,
+         </if>       
+                <if test="saleType != null">
+            `saleType`,
+         </if>       
+                <if test="rate != null">
+            `rate`,
+         </if>                      
+                <if test="id != null">
+            `id`,
+         </if>                           
+                <if test="schoolNum != null">
+            `schoolNum`,
+         </if>                           
+                <if test="editedTime != null">
+            `editedTime`,
+         </if>       
+                <if test="createdTime != null">
+            `createdTime`,
+         </if>       
+               
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+                     <if test="levelId != null">
+            #{levelId,jdbcType=INTEGER},
+            </if>
+                     <if test="saleType != null">
+            #{saleType,jdbcType=INTEGER},
+            </if>
+                     <if test="rate != null">
+            #{rate,jdbcType=INTEGER},
+            </if>                   
+                     <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>                   
+                     <if test="schoolNum != null">
+            #{schoolNum,jdbcType=INTEGER},
+            </if>                   
+                     <if test="editedTime != null">
+            #{editedTime,jdbcType=VARCHAR},
+            </if>
+                     <if test="createdTime != null">
+            #{createdTime,jdbcType=VARCHAR},
+            </if>
+             </trim>
+	</insert>
+
+    <update id="update" parameterType="com.ryt.web.entity.finance.FinanceDistributionParams">
+    UPDATE distributionParams
+        <set>
+                    <if test="levelId != null">
+            levelId = #{levelId,jdbcType=INTEGER},
+             </if> 
+                    <if test="saleType != null">
+            saleType = #{saleType,jdbcType=INTEGER},
+             </if> 
+                    <if test="rate != null">
+            rate = #{rate,jdbcType=INTEGER},
+             </if>                     
+                    <if test="id != null">
+            id = #{id,jdbcType=INTEGER},
+             </if>                    
+                    <if test="schoolNum != null">
+            schoolNum = #{schoolNum,jdbcType=INTEGER},
+             </if> 
+                    <if test="editedTime != null">
+            editedTime = #{editedTime,jdbcType=VARCHAR},
+             </if> 
+                    <if test="createdTime != null">
+            createdTime = #{createdTime,jdbcType=VARCHAR},
+             </if> 
+                </set>
+    WHERE id 
+    <if test="id != null">
+        = #{id,jdbcType=INTEGER}
+    </if>
+    </update>
+
+    <select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.finance.FinanceDistributionParams">
+		SELECT t.*
+		FROM distributionParams t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="del" parameterType="com.ryt.web.entity.finance.FinanceDistributionParams">
+		DELETE FROM distributionParams
+		WHERE id = 
+        <if test="id != null">
+        #{id,jdbcType=INTEGER}
+        </if>
+	</delete>
+
+</mapper>

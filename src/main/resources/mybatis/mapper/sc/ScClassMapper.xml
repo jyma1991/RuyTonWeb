@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryt.web.dao.sc.ScClassDao">
+	<resultMap id="queryResultMap" type="com.ryt.web.entity.sc.ScClass">
+		<result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+		<result column="agentId" property="agentId" jdbcType="INTEGER" />
+		<result column="managerId" property="managerId" jdbcType="INTEGER" />
+		<result column="classCode" property="classCode" jdbcType="VARCHAR" />
+		<result column="className" property="className" jdbcType="VARCHAR" />
+		<result column="grade" property="grade" jdbcType="INTEGER" />
+		<result column="maxAmount" property="maxAmount" jdbcType="INTEGER" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="startDate" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="placeTypeId" property="placeTypeId" jdbcType="INTEGER" />
+		<result column="streamId" property="streamId" jdbcType="INTEGER" />
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
+		<result column="userId" property="userId" jdbcType="INTEGER" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
+		<result column="sortId" property="sortId" jdbcType="INTEGER" />
+		<result column="isDeleted" property="isDeleted" jdbcType="TINYINT" />
+		<result column="operaterId" property="operaterId" jdbcType="INTEGER" />
+		<result column="editedTime" property="editedTime" jdbcType="VARCHAR" />
+		<result column="createdTime" property="createdTime" jdbcType="VARCHAR" />
+		<result column="videoStart" property="videoStart" jdbcType="TIME" />
+		<result column="videoStop" property="videoStop" jdbcType="TIME" />
+		<result column="snapShotStreamUrl" property="snapShotStreamUrl" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="find" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultMap="queryResultMap">
+		SELECT t.*
+		FROM scClass t
+		<include refid="expressionBlock.where" />
+		<choose>
+			<when test="sortname == null">
+				ORDER BY t.id desc
+			</when>
+			<otherwise>
+				ORDER BY ${order}
+			</otherwise>
+		</choose>
+		<if test="!isQueryAll">
+			LIMIT
+			#{firstResult,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="findTotalCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM scClass t
+		<include refid="expressionBlock.where" />
+	</select>
+
+	<insert id="save" parameterType="com.ryt.web.entity.sc.ScClass"
+		keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO scClass
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="schoolId != null">
+				`schoolId`,
+			</if>
+			<if test="agentId != null">
+				`agentId`,
+			</if>
+			<if test="managerId != null">
+				`managerId`,
+			</if>
+			<if test="classCode != null">
+				`classCode`,
+			</if>
+			<if test="className != null">
+				`className`,
+			</if>
+			<if test="grade != null">
+				`grade`,
+			</if>
+			<if test="maxAmount != null">
+				`maxAmount`,
+			</if>
+			<if test="amount != null">
+				`amount`,
+			</if>
+			<if test="startDate != null">
+				`startDate`,
+			</if>
+			<if test="remark != null">
+				`remark`,
+			</if>
+			<if test="placeTypeId != null">
+				`placeTypeId`,
+			</if>
+			<if test="streamId != null">
+				`streamId`,
+			</if>
+			<if test="id != null">
+				`id`,
+			</if>
+			<if test="uuid != null">
+				`uuid`,
+			</if>
+			<if test="userId != null">
+				`userId`,
+			</if>
+			<if test="userName != null">
+				`userName`,
+			</if>
+			<if test="sortId != null">
+				`sortId`,
+			</if>
+			<if test="isDeleted != null">
+				`isDeleted`,
+			</if>
+			<if test="operaterId != null">
+				`operaterId`,
+			</if>
+			<if test="editedTime != null">
+				`editedTime`,
+			</if>
+			<if test="createdTime != null">
+				`createdTime`,
+			</if>
+			<if test="videoStart != null">
+				`videoStart`,
+			</if>
+			<if test="videoStop != null">
+				`videoStop`,
+			</if>
+			<if test="snapShotStreamUrl != null">
+				`snapShotStreamUrl`,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="schoolId != null">
+				#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="agentId != null">
+				#{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="managerId != null">
+				#{managerId,jdbcType=INTEGER},
+			</if>
+			<if test="classCode != null">
+				#{classCode,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				#{className,jdbcType=VARCHAR},
+			</if>
+			<if test="grade != null">
+				#{grade,jdbcType=INTEGER},
+			</if>
+			<if test="maxAmount != null">
+				#{maxAmount,jdbcType=INTEGER},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=INTEGER},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="placeTypeId != null">
+				#{placeTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="streamId != null">
+				#{streamId,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				#{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				#{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="videoStart != null">
+				#{videoStart,jdbcType=TIME},
+			</if>
+			<if test="videoStop != null">
+				#{videoStop,jdbcType=TIME},
+			</if>
+			<if test="snapShotStreamUrl != null">
+				#{snapShotStreamUrl,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.ryt.web.entity.sc.ScClass">
+		UPDATE scClass
+		<set>
+			<if test="schoolId != null">
+				schoolId = #{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="agentId != null">
+				agentId = #{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="managerId != null">
+				managerId = #{managerId,jdbcType=INTEGER},
+			</if>
+			<if test="classCode != null">
+				classCode = #{classCode,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				className = #{className,jdbcType=VARCHAR},
+			</if>
+			<if test="grade != null">
+				grade = #{grade,jdbcType=INTEGER},
+			</if>
+			<if test="maxAmount != null">
+				maxAmount = #{maxAmount,jdbcType=INTEGER},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=INTEGER},
+			</if>
+			<if test="startDate != null">
+				startDate = #{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="placeTypeId != null">
+				placeTypeId = #{placeTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="streamId != null">
+				streamId = #{streamId,jdbcType=INTEGER},
+			</if>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				userId = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				userName = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="sortId != null">
+				sortId = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="isDeleted != null">
+				isDeleted = #{isDeleted,jdbcType=TINYINT},
+			</if>
+			<if test="operaterId != null">
+				operaterId = #{operaterId,jdbcType=INTEGER},
+			</if>
+			<if test="editedTime != null">
+				editedTime = #{editedTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				createdTime = #{createdTime,jdbcType=VARCHAR},
+			</if>
+			<if test="videoStart != null">
+				videoStart = #{videoStart,jdbcType=TIME},
+			</if>
+			<if test="videoStop != null">
+				videoStop = #{videoStop,jdbcType=TIME},
+			</if>
+			<if test="snapShotStreamUrl != null">
+				snapShotStreamUrl = #{snapShotStreamUrl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE id
+		<if test="id != null">
+			= #{id,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<select id="get" resultMap="queryResultMap" parameterType="com.ryt.web.entity.sc.ScClass">
+		SELECT t.*
+		FROM scClass t
+		WHERE id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="del" parameterType="com.ryt.web.entity.sc.ScClass">	
+		update scClass set isDeleted = 1 
+		WHERE id =
+		<if test="id != null">
+			#{id,jdbcType=INTEGER}
+		</if>
+	</delete>
+
+	<select id="getCommonStreams" resultMap="queryResultMap"
+		parameterType="com.ryt.web.entity.sc.ScClass">
+		SELECT
+		sc.*
+		FROM
+		scClass sc
+		WHERE
+		sc.schoolId = #{schoolId,jdbcType=INTEGER}
+		AND (id = #{id,jdbcType=INTEGER}
+		OR sc.placeTypeId = 70) AND sc.isDeleted = 0
+	</select>
+
+	<select id="getClassContactCount" parameterType="org.durcframework.core.expression.ExpressionQuery"
+		resultType="java.lang.Integer">
+		select count(sc.id) from scStudentParents sc where sc.isDeleted = 0 and
+		sc.studentId in (select s.studentId from scStudent s where
+		s.classId=#{classId,jdbcType=INTEGER} and s.isDeleted = 0);
+	</select>
+	<select id="getAllDayVedio" resultMap="queryResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		sc.*
+		FROM
+		scClass sc
+		WHERE 
+		sc.isDeleted = 0
+		AND
+		(sc.videoStart is NULL
+		OR
+		sc.videoStop is NULL
+		OR
+		sc.videoStart = STR_TO_DATE('00:00:00','%H:%i:%s')
+		OR
+		sc.videoStop = STR_TO_DATE('00:00:00','%H:%i:%s'))
+	</select>
+	<select id="getBetweenStartAndStopVedio" resultMap="queryResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		sc.*
+		FROM
+		scClass sc
+		WHERE sc.isDeleted = 0
+		AND 
+		STR_TO_DATE(#{videoTime,jdbcType=VARCHAR},'%H:%i:%s')
+		BETWEEN
+		sc.videoStart 
+		AND
+		sc.videoStop 
+	</select>
+	<select id="getSurpassStopVedio" resultMap="queryResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		sc.*
+		FROM
+		scClass sc
+		WHERE sc.isDeleted = 0
+		AND 
+		sc.videoStop > STR_TO_DATE('00:00:00','%H:%i:%s')
+		AND STR_TO_DATE(#{videoTime,jdbcType=VARCHAR},'%H:%i:%s') >= sc.videoStop 
+		OR  <![CDATA[ STR_TO_DATE(#{videoTime,jdbcType=VARCHAR},'%H:%i:%s') < sc.videoStart ]]>   
+	</select>	
+</mapper>
